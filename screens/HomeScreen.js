@@ -10,12 +10,15 @@ class HomeScreen extends React.Component {
     return (
       <SafeAreaView style={styles.container}>
         <Swiper
-          cards={HomeScreenPics}
+          cards={HomeScreenPics}    //Swiper tiene variables para saber si desliza a izq o drcha 
           renderCard={Card}
           infinite
           backgroundColor="white"
           cardHorizontalMargin={0}
           stackSize={2}
+          onSwipedLeft={() => console.log('Next')}
+          onSwipedRight={() => console.log('Café')}
+
         />
       </SafeAreaView>
     )
