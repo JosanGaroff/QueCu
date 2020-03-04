@@ -2,7 +2,7 @@ import React from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { Text, Tile } from 'react-native-elements'
 import { SafeAreaView } from 'react-navigation'
-import { TopPicksScreenPics } from '../constants/Pics'
+import { ExploraPics } from '../constants/Pics'
 
 class TopPicksScreen extends React.Component {
   render() {
@@ -16,7 +16,7 @@ class TopPicksScreen extends React.Component {
             Echa un vistazo a los eventos que tenemos para ti
           </Text>
           <View style={styles.grid}>
-            {TopPicksScreenPics.map(({ pic, title, caption }, i) => (
+            {ExploraPics.map(({ pic, title, caption }, i) => (
               <Tile
                 imageSrc={pic}
                 activeOpacity={0.9}
@@ -26,6 +26,7 @@ class TopPicksScreen extends React.Component {
                 captionStyle={styles.caption}
                 featured
                 key={title}
+                onPress={() => console.log('Evento tocado')}
               />
             ))}
           </View>

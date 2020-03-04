@@ -26,14 +26,14 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: Layout.window.width - 30,
-    height: Layout.window.height - BOTTOM_BAR_HEIGHT * 6,
+    height: Layout.window.height - BOTTOM_BAR_HEIGHT * 6 ,
     borderRadius: 20,
     overflow: 'hidden', // this does magic
   },
   title: {
     position: 'absolute',
     left: 10,
-    bottom: 30,
+    bottom: 70,
   },
   caption: {
     position: 'absolute',

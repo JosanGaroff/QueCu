@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet } from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import { Card } from '../components/Card'
 import { HomeScreenPics } from '../constants/Pics'
+import { createStackNavigator } from 'react-navigation' //Navegación
 
 class HomeScreen extends React.Component {
   render() {

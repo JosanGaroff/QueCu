@@ -5,8 +5,9 @@ export const HomeScreenPics = shuffleArray([
   {
     pic: require('../assets/images/women/women1.jpg'),
     title: 'Amelia, 27',
-    caption: '16 miles away',
+    caption: 'Cine\n Filosofía \n Arte',
   },
+  /*
   {
     pic: require('../assets/images/women/women2.jpg'),
     title: 'Joanna, 19',
@@ -96,11 +97,43 @@ export const HomeScreenPics = shuffleArray([
     pic: require('../assets/images/men/men9.jpg'),
     title: 'Joey, 29',
     caption: '17 miles away',
-  },
+  }, */
   
   
 ])
 
+
+export const ExploraPics = shuffleArray([
+
+  {
+    pic: require('../assets/images/events/debate.jpg'),
+    title: 'Debate político',
+    caption: 'Descripción'
+  },
+  {
+    pic: require('../assets/images/events/museo.jpg'),
+    title: 'Visita a museo',
+    caption: 'Descripción'
+  },
+  {
+    pic: require('../assets/images/events/guitar.jpg'),
+    title: 'Compartir gustos musicales',
+    caption: 'Descripción'
+  },
+  {
+    pic: require('../assets/images/events/libro.jpg'),
+    title: 'Café & Filosofía',
+    caption: 'Descripción',
+  },
+  {
+    pic: require('../assets/images/events/cine.jpg'),
+    title: 'Hablar sobre Cine',
+    caption: 'Descripción',
+  },
+
+])
+
+/*
 export const TopPicksScreenPics = shuffleArray([
   {
     pic: require('../assets/images/women/women11.jpg'),
@@ -153,7 +186,7 @@ export const TopPicksScreenPics = shuffleArray([
     caption: '21h left',
   },
 ])
-
+*/
 
 export const myProfile = [
   {
