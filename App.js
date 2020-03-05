@@ -1,10 +1,12 @@
 import { AppLoading, Asset, Font, Icon } from 'expo'
 import React from 'react'
-import { StatusBar, StyleSheet, View } from 'react-native'
+import { StatusBar, StyleSheet, View, Text, TextInput, TouchableOpacity, AsyncStorage, Keyboard } from 'react-native'
 import AppNavigator from './navigation/AppNavigator'
 
 export default class App extends React.Component {
   state = {
+    email:'',
+    password: '',
     isLoadingComplete: false,
   }
 
@@ -25,6 +27,54 @@ export default class App extends React.Component {
         </View>
       )
     }
+  }
+
+  saveData =async()=>{
+    const {email,password} = this.state;
+
+    //save data with asyncstorage
+    let loginDetails={
+        email: email,
+        password: password
+    }
+
+    if(this.props.type !== 'Login')
+    {
+        AsyncStorage.setItem('loginDetails', JSON.stringify(loginDetails));
+
+        Keyboard.dismiss();
+        alert("You successfully registered. Email: " + email + ' password: ' + password);
+        this.login();
+    }
+    else if(this.props.type == 'Login')
+    {
+        try{
+            let loginDetails = await AsyncStorage.getItem('loginDetails');
+            let ld = JSON.parse(loginDetails);
+
+            if (ld.email != null && ld.password != null)
+            {
+                if (ld.email == email && ld.password == password)
+                {
+                    alert('Go in!');
+                }
+                else
+                {
+                    alert('Email and Password does not exist!');
+                }
+            }
+
+        }catch(error)
+        {
+            alert(error);
+        }
+    }
+}
+
+  showData = async()=>{
+      let loginDetails = await AsyncStorage.getItem('loginDetails');
+      let ld = JSON.parse(loginDetails);
+      alert('email: '+ ld.email + ' ' + 'password: ' + ld.password);
   }
 
   _loadResourcesAsync = async () => {
