@@ -7,7 +7,7 @@ export const HomeScreenPics = shuffleArray([
     title: 'Amelia, 27',
     caption: 'Cine\n Filosofía \n Arte',
   },
-  /*
+  
   {
     pic: require('../assets/images/women/women2.jpg'),
     title: 'Joanna, 19',
@@ -43,6 +43,7 @@ export const HomeScreenPics = shuffleArray([
     title: 'Monica, 35',
     caption: '19 miles away',
   },
+  /*
   {
     pic: require('../assets/images/women/women9.jpg'),
     title: 'Lisa, 25',
@@ -77,7 +78,7 @@ export const HomeScreenPics = shuffleArray([
     pic: require('../assets/images/men/men5.jpg'),
     title: 'Leo, 30',
     caption: '22 miles away',
-  },
+  },  
   {
     pic: require('../assets/images/men/men6.jpg'),
     title: 'Ronald, 39',
