@@ -3,7 +3,8 @@ import { SafeAreaView , StatusBar, StyleSheet, View, Text, TextInput, TouchableO
 
 import Swiper from 'react-native-deck-swiper'
 import { Card } from '../components/Card'
-import { Users } from '../constants/Users'
+import { HomeScreenPics } from '../constants/Pics'
+
 //import Routes from './Routes';
 
 
