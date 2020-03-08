@@ -7,7 +7,27 @@ export const HomeScreenPics = shuffleArray([
     title: 'Amelia, 27',
     caption: 'Cine\n Filosofía \n Arte',
   },
-  
+
+  {
+    pic: require('../assets/images/women/women8.jpg'),
+    title: 'Monica, 35',
+    caption: 'Música\n Cine \n Arte',
+  },
+
+  {
+    pic: require('../assets/images/men/men9.jpg'),
+    title: 'Joey, 29',
+    caption: 'Política\n Filosofía \n Escritura',
+  },
+  {
+    pic: require('../assets/images/men/men6.jpg'),
+    title: 'Ronald, 39',
+    caption: 'Danza\n Poesía \n Arte',
+  },
+
+  //-----------------ESTOS MO LOS UTILIZAMOS AÚN ----------------//
+
+  /*
   {
     pic: require('../assets/images/women/women2.jpg'),
     title: 'Joanna, 19',
@@ -38,12 +58,8 @@ export const HomeScreenPics = shuffleArray([
     title: 'Ava, 31',
     caption: '14 miles away',
   },
-  {
-    pic: require('../assets/images/women/women8.jpg'),
-    title: 'Monica, 35',
-    caption: '19 miles away',
-  },
-  /*
+  
+  
   {
     pic: require('../assets/images/women/women9.jpg'),
     title: 'Lisa, 25',
@@ -79,11 +95,7 @@ export const HomeScreenPics = shuffleArray([
     title: 'Leo, 30',
     caption: '22 miles away',
   },  
-  {
-    pic: require('../assets/images/men/men6.jpg'),
-    title: 'Ronald, 39',
-    caption: '35 miles away',
-  },
+  
   {
     pic: require('../assets/images/men/men7.jpg'),
     title: 'Johnny, 41',
@@ -94,11 +106,7 @@ export const HomeScreenPics = shuffleArray([
     title: 'Chandler, 35',
     caption: '29 miles away',
   },
-  {
-    pic: require('../assets/images/men/men9.jpg'),
-    title: 'Joey, 29',
-    caption: '17 miles away',
-  }, */
+   */
   
   
 ])
