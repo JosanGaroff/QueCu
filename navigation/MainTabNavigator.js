@@ -9,6 +9,7 @@ import HomeScreen from '../screens/HomeScreen'
 import MessagesScreen from '../screens/MessagesScreen'
 import ProfileScreen from '../screens/ProfileScreen'
 import TopPicksScreen from '../screens/TopPicksScreen'
+import LoginScreen from '../screens/LoginScreen'
 
 const HomeStack = createStackNavigator(
   {
@@ -80,7 +81,28 @@ ProfileStack.navigationOptions = {
   ),
 }
 
+const LoginStack = createStackNavigator(
+  {
+    Login: LoginScreen,
+  },
+  {
+    headerMode: 'none',
+  },
+)
+
+LoginStack.navigationOptions = {
+  tabBarLabel: 'Login',
+  tabBarIcon: ({ focused }) => (
+    <TabBarIcon
+      Icon={Icon.MaterialCommunityIcons}
+      focused={focused}
+      name="fire"
+    />
+  ),
+}
+
 export default createBottomTabNavigator({
+  LoginStack,
   HomeStack,
   TopPicksStack,
   //MessagesStack,

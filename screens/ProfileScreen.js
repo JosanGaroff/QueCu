@@ -29,10 +29,8 @@ class ProfileScreen extends React.Component {
         <Text style={styles.desc}> Estudiante de Teleco </Text>
         <Divider style={styles.divider} />
         <Text style={styles.desc}>
-          I love to travel. I have a cat named pickles, if he likes you, I
-          probably will too.
-
-          [HACER UNA LISTA CON PREFERENCIAS...ETC]
+          Me encanta debatir sobre política o sobre filosofía tomando un café. 
+          Me gustaŕía aprender a entender los diferentes puntos de vista de la gente.
         </Text>
         
         <Divider style={styles.divider} />
