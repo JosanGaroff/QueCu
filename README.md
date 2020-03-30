@@ -7,6 +7,7 @@ Primero, hay que tener el repositorio en local, con el comando:
 ```bash
 git clone https://github.com/JosanGaroff/QueCu
 ```
+> Nota: Comprobar que estamos en la rama correcta: debe ser "javaee"
 
 Una vez tenemos el repositorio clonado en local, hacemos los cambios en cualquier archivo, pero para no interferir en el trabajo de los demás y que todo se sincronice bien, siempre que terminemos de editar y queramos subirlo al repositorio debemos seguir los siguientes pasos:
 
