@@ -9,11 +9,19 @@
 <body>
 
 
-<h2>Usuario</h2>
+<h2>Nuevo Usuario Registrado</h2>
 
-<h2>${user.email}</h2>
-<h2>${user.password}</h2>
-<h2>${user.descripcion}</h2>
+<p>
+
+<p>email: ${user.email}</p>
+<p>password: ${user.password}</p>
+<p>descripcion: ${user.descripcion}</p>
+<p>nombre: ${user.nombre}</p>
+<p>ciudad: ${user.ciudad}</p>
+
+<h2>Salir de la aplicacion</h2>
+<%@ include file = "FormLogout.jsp" %>
+
 
 
 </body>

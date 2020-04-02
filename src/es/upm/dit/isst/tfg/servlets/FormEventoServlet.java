@@ -23,8 +23,7 @@ public class FormEventoServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 	
-		 getServletContext().getRequestDispatcher("/CreaEvento.jsp")
-         .forward(req,resp);
+		 getServletContext().getRequestDispatcher("/CreaEvento.jsp").forward(req,resp);
 	}
 
 	

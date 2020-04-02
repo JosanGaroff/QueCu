@@ -15,10 +15,32 @@ public class Usuario implements Serializable {
 	private String email;
 	private String password;
 	private String descripcion;
+	private String nombre;
+	private String ciudad;
+	
+/*	
+	@OneToMany(mappedBy = "advisor", fetch = FetchType.EAGER)
+	private Collection<Intereses> intereses;
+	
 
+	enum Intereses {
+		  lectura,
+		  Cine,
+		  Fotografia,
+		  Museos
+		}
+*/	
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		return "Usuario [email=" + email + ", password=" + password + ", descripcion=" + descripcion + "]";
+	}
+
+	public Usuario() {
+		super();
 	}
 
 	@Override
@@ -75,7 +97,23 @@ public class Usuario implements Serializable {
 	}
 
 	public void setDescripcion(String descripcion) {
-		descripcion = descripcion;
+		this.descripcion = descripcion;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
 	}
 
 	public static long getSerialversionuid() {

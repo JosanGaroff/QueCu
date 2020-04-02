@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import es.upm.dit.isst.tfg.dao.EventoDAOImplementation;
 import es.upm.dit.isst.tfg.dao.UsuarioDAOImplementation;
+import es.upm.dit.isst.tfg.model.Evento;
 import es.upm.dit.isst.tfg.model.Usuario;
 
 /**
@@ -21,8 +23,8 @@ import es.upm.dit.isst.tfg.model.Usuario;
 public class FormLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private final String ADMIN_EMAIL = "root";
-	private final String ADMIN_PASSWORD = "root";	
+	private final String ADMIN_EMAIL = "";
+	private final String ADMIN_PASSWORD = "";	
 	
     public FormLoginServlet() {
         super();
@@ -33,26 +35,34 @@ public class FormLoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		Usuario user1 = UsuarioDAOImplementation.getInstancia().login(email, password);
-		Collection<Usuario> usuarios =  UsuarioDAOImplementation.getInstancia().readAll();
 		
-			if( ADMIN_EMAIL.equals(email) && ADMIN_PASSWORD.equals(password) ) {
-				req.getSession().setAttribute("admin", true);
-			    getServletContext().getRequestDispatcher("/Admin.jsp").forward(req,resp);
-	                      
-			} else if ( null != user1 ) {
-				req.getSession().setAttribute("user1", user1);
-				List<Usuario> lp = new ArrayList<Usuario>();
-				lp.addAll(usuarios);
-				req.getSession().setAttribute("usuarios", lp);
-			    //lp.add (user1);
-		         getServletContext().getRequestDispatcher("/Usuario.jsp")
-	                      .forward(req,resp);
+		Collection<Usuario> usuarios =  UsuarioDAOImplementation.getInstancia().readAll();
+		Collection<Evento> eventos =  EventoDAOImplementation.getInstancia().readAll();
 
-			} else	{
-		              getServletContext().getRequestDispatcher("/index.html")
-	                      .forward(req,resp);
-			}
+		Usuario usuario = UsuarioDAOImplementation.getInstancia().login(email, password);
+		
+		
+		
+		if( ADMIN_EMAIL.equals(email) && ADMIN_PASSWORD.equals(password) ) {
+			System.out.println("-------[LOGIN ADMIN]-------");
+
+			req.getSession().setAttribute("admin", true);
+			req.getSession().setAttribute("usuarios", usuarios);
+        	req.getSession().setAttribute("eventos", eventos);
+			
+			getServletContext().getRequestDispatcher("/Admin.jsp").forward(req,resp);
+
+		} else if ( null != usuario ) {
+			System.out.println("-------[LOGIN USER]-------");
+
+			req.getSession().setAttribute("usuario", usuario);
+			
+			getServletContext().getRequestDispatcher("/Usuario.jsp").forward(req,resp);
+
+		} else	{
+			System.out.println("-------[SALIDA]-------");
+			getServletContext().getRequestDispatcher("/index.html").forward(req,resp);
+		}
 
 
 	}

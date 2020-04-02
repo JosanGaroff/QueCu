@@ -29,14 +29,12 @@ public class FormVerEventosServlet extends HttpServlet {
 		 
 		Usuario  user = (Usuario) req.getSession().getAttribute("user1");
 		
-		
 		Collection<Evento> events =  EventoDAOImplementation.getInstancia().readAll();
 		
 		req.getSession().setAttribute("eventos", events);
 		req.getSession().setAttribute("user1", user);
 		
-		getServletContext().getRequestDispatcher("/VerEventos.jsp")
-         .forward(req,resp);
+		getServletContext().getRequestDispatcher("/VerEventos.jsp").forward(req,resp);
 	}
 
 	

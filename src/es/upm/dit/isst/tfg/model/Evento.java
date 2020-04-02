@@ -16,6 +16,7 @@ public class Evento {
 	private String descripcion;
 	private Usuario user;
 	private String titulo;
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

@@ -12,9 +12,6 @@
 </head>
 <body>
 
-<h2>Eres </h2>
-<td>${user1.email}</td>
-
 <h2>Lista de todos los eventos </h2>
 <table border="1">
 <c:forEach items="${eventos}" var="eventi">

@@ -12,20 +12,7 @@
 </head>
 <body>
 
-<h2>Usuario actual </h2>
-<h2> ${user1.email} </h2>
-
-<h2>Lista de todos usuarios creados </h2>
-<table border="1">
-<c:forEach items="${usuarios}" var="usuari">
-<tr>
-<td>${usuari.email}</td>
-<td>${usuari.password}</td>
-<td>${usuari.descripcion}</td>
-</tr>
-</c:forEach>
-</table>
-
+<h2>Usuario actual: ${usuario.email}  </h2>
 
 <h2>Publicar un evento </h2>
 <form action="FormEventoServlet">
@@ -37,6 +24,17 @@
 <form action="FormVerEventosServlet">
 	<button type="submit">Lista de eventos</button>
 </form>
+
+<h2>Editar perfil</h2>
+<form action="FormEditarServlet">
+	<input type="hidden" name="usuarioEmail" value="${usuario.email}" />
+	<button type="submit">Editar</button>
+</form>
+
+
+<h2>Salir de la aplicacion</h2>
+<%@ include file = "FormLogout.jsp" %>
+
 
 </body>
 </html>

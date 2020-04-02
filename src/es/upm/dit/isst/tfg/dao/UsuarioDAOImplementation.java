@@ -2,9 +2,7 @@ package es.upm.dit.isst.tfg.dao;
 
 import java.util.Collection;
 import java.util.List;
-
 import javax.persistence.Query;
-
 import org.hibernate.Session;
 
 import es.upm.dit.isst.tfg.model.Usuario;
@@ -79,19 +77,17 @@ public class UsuarioDAOImplementation implements UsuarioDAO {
 			q.setParameter("email", email);
 			q.setParameter("password", password);
 			
-			user = (Usuario) (q.getResultList().get(0));
+			List<Usuario> users = q.getResultList();
+			if (users.size() > 0) {
+				user = (Usuario) (q.getResultList().get(0));
+			}
 			session.getTransaction().commit();
 			session.close();
+			
+			System.out.println("------ UsuarioDAO login ------ " );
+			
 			return user;
-			/*
-			List<Usuario> user1 = q.getResultList();
-			if (user1.size() > 0)
-			Usuario = (Usuario) (q.getResultList().get(0));
-			session.getTransaction().commit();
-			session.close();
-			return user1;
-			*/
-
+			
 		}
 		
 		
