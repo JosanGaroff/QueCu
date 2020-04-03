@@ -10,7 +10,7 @@ public interface EventoDAO {
 
 	public void create(Evento event);
 
-	//public Usuario read(String email);
+	public Evento read(String titulo);
 
 	public void update(Evento event);
 

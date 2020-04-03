@@ -2,7 +2,9 @@ package es.upm.dit.isst.tfg.model;
 
 
 import java.io.Serializable;
+
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,9 +15,11 @@ import javax.persistence.OneToMany;
 public class Evento {
 
 	@Id
+	private String titulo;
 	private String descripcion;
 	private Usuario user;
-	private String titulo;
+	@OneToMany
+	private Collection<Usuario> participantes;
 	
 	@Override
 	public int hashCode() {
@@ -51,6 +55,16 @@ public class Evento {
 		} else if (!user.equals(other.user))
 			return false;
 		return true;
+	}
+	
+	
+	
+	
+	public Collection<Usuario> getParticipantes() {
+		return participantes;
+	}
+	public void setParticipantes(Collection<Usuario> participantes) {
+		this.participantes = participantes;
 	}
 	public String getDescripcion() {
 		return descripcion;

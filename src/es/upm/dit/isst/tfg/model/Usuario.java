@@ -2,6 +2,7 @@ package es.upm.dit.isst.tfg.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -17,6 +18,8 @@ public class Usuario implements Serializable {
 	private String descripcion;
 	private String nombre;
 	private String ciudad;
+	@OneToMany
+	private Collection<Usuario> amigos;
 	
 /*	
 	@OneToMany(mappedBy = "advisor", fetch = FetchType.EAGER)
@@ -34,6 +37,14 @@ public class Usuario implements Serializable {
 	
 	
 	
+	public Collection<Usuario> getAmigos() {
+		return amigos;
+	}
+
+	public void setAmigos(Collection<Usuario> amigos) {
+		this.amigos = amigos;
+	}
+
 	@Override
 	public String toString() {
 		return "Usuario [email=" + email + ", password=" + password + ", descripcion=" + descripcion + "]";
@@ -119,10 +130,5 @@ public class Usuario implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-
-	
-
-	
 	
 }

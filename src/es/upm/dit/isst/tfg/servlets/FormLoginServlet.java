@@ -56,7 +56,9 @@ public class FormLoginServlet extends HttpServlet {
 			System.out.println("-------[LOGIN USER]-------");
 
 			req.getSession().setAttribute("usuario", usuario);
-			
+			req.getSession().setAttribute("usuarios", usuarios);
+        	req.getSession().setAttribute("eventos", eventos);
+
 			getServletContext().getRequestDispatcher("/Usuario.jsp").forward(req,resp);
 
 		} else	{

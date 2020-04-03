@@ -29,19 +29,18 @@ public class EventoDAOImplementation implements EventoDAO{
 			session.close();
 			
 		}
-//Metodo
-	  /*
+
 		@Override
-		public Usuario read (String email) {
+		public Evento read(String titulo) {
 			Session session = SessionFactoryService.get().openSession();
 			session.beginTransaction();
-			Usuario professor = session.load(Usuario.class, email );
+			Evento event = session.load(Evento.class, titulo);
 			session.getTransaction().commit();
 			session.close();
-			return professor;
+			return event;
 
 		}
-*/
+
 		@Override
 		public void update(Evento event) {
 			Session session = SessionFactoryService.get().openSession();
