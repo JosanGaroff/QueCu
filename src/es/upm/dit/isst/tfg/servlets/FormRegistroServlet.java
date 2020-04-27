@@ -1,6 +1,7 @@
 package es.upm.dit.isst.tfg.servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import es.upm.dit.isst.tfg.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.tfg.model.Usuario;
@@ -44,7 +47,18 @@ public class FormRegistroServlet extends HttpServlet {
 		UsuarioDAOImplementation.getInstancia().create(user);
 		
 		req.getSession().setAttribute("user", user);
-		getServletContext().getRequestDispatcher("/UsuarioInicio.jsp").forward(req,resp);
+		/*getServletContext().getRequestDispatcher("/UsuarioInicio.jsp").forward(req,resp);*/
+		
+		req.getSession().setAttribute("user", user);
+		
+		Gson gson = new Gson();
+		String JsonString = gson.toJson(user);
+		
+		PrintWriter out = resp.getWriter();
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        out.print(JsonString);
+        out.flush();
 		
 
 	}
