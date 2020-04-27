@@ -1,54 +1,39 @@
+import React, { memo } from 'react';
+import Background from '../../components/Background';
+import Logo from '../../components/Logo';
+import Header from '../../components/Header';
+import Paragraph from '../../components/Paragraph';
+import Button from '../../components/Button';
 
-/*import { AppLoading, Asset, Font, Icon } from 'expo'
-import React from 'react'
-import { StatusBar, StyleSheet, View, Text, Button } from 'react-native'
-import AppNavigator from './navigation/AppNavigator'
-*/
+//Antiguas importaciones de App.js
+import { AppLoading, Asset, Font, Icon } from 'expo'
+//import React from 'react'
+import { StatusBar, StyleSheet, View, Text } from 'react-native'
+import AppNavigator from '../../navigation/AppNavigator'
 
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
-
-import React from 'react';
-import { Provider } from 'react-native-paper';
-import App from './screens';
-import { theme } from './core/theme';
-
-//var user = {ciudad:"Madrid", descripcion:"Nana", edad: "23", email:"", nombre:"Jose", password:""};
-
-const Main = () => (
-//render(){
-//  return(
-  <Provider theme={theme}>
-    <App />
-  </Provider>
-
-//)}
-);
-
-
-export default Main;
-
+import user from './LoginScreen';
 
 localhost = '192.168.0.11';  // PONER CADA UNO LA DIRECCIÓN IP DE SU ORDENADOR
 
 
-/*  state = {
+  state = {
+
     data: [],
+//    user: {ciudad:, descripcion:, edad: , email:, nombre:, password:},
     isLoading: true,
     isLoadingComplete: false,
     isLogged: false,
   }
 //  hacerLogin = (email, password) =>{
-  hacerLogin = () =>{
-    console.log("has pulsado")
+/*    console.log("has pulsado")
     let url = new URL('http://'+localhost+':8080/ISST-20-TFG/FormLoginServlet')
     url.search = new URLSearchParams({
         email:'d',
         password:''
     })
     //fetch('http://'+localhost+':8080/ISST-20-TFG/FormLoginServlet?email=' + email + '&password=' + password, {
-    fetch('http://'+localhost+':8080/ISST-20-TFG/FormLoginServlet?email=&password=', {
-        method: 'POST',
+    fetch('http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email=' + email + '&password=' + password, {
+        method: 'GET',
         headers: {
             'Accept': 'application/json',
             'Content-type': 'application/json',
@@ -57,8 +42,8 @@ localhost = '192.168.0.11';  // PONER CADA UNO LA DIRECCIÓN IP DE SU ORDENADOR
         })
     this.state.isLogged = true;
   }
-
-   componentDidMount() {
+*/
+componentDidMount = () =>{
 
     fetch('http://'+localhost+':8080/ISST-20-TFG/FormPeticionJson', {
         method: 'GET',
@@ -78,13 +63,9 @@ localhost = '192.168.0.11';  // PONER CADA UNO LA DIRECCIÓN IP DE SU ORDENADOR
         });
 
   }
-render() {
-  <Provider theme={theme}>
-    <App />
-  </Provider>
-}
+
 /*  render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen && this.state.isLogged) {
+    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
       return (
         <AppLoading
           startAsync={this._loadResourcesAsync}
@@ -112,13 +93,13 @@ render() {
         </View>
       )
     }
-  }
+  }*/
 
   _loadResourcesAsync = async () => {
     return Promise.all([
       Asset.loadAsync([
-        require('./assets/splash.png'),
-        require('./assets/icon.png'),
+        require('../../assets/splash.png'),
+        require('../../assets/icon.png'),
       ]),
       Font.loadAsync({
         // This is the font that we are using for our tab bar
@@ -141,7 +122,7 @@ render() {
   }
 
 
-}
+
 
 const styles = StyleSheet.create({
   container: {
@@ -149,4 +130,28 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 })
+
+
+
+const Dashboard = ({ navigation }) => (
+  <View style={styles.container}>
+    <StatusBar />
+    <AppNavigator />
+  </View>
+);
+
+/*const Dashboard = ({ navigation }) => (
+  <Background>
+    <Logo />
+    <Header>Let’s start</Header>
+    <Paragraph>
+      Your amazing app starts here. Open you favourite code editor and start
+      editing this project.
+    </Paragraph>
+    <Button mode="outlined" onPress={() => navigation.navigate('HomeScreen')}>
+      Logout
+    </Button>
+  </Background>
+);
 */
+export default memo(Dashboard);

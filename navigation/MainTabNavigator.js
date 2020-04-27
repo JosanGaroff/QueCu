@@ -21,12 +21,12 @@ const HomeStack = createStackNavigator(
 )
 
 HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
+  tabBarLabel: 'Inicio',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
-      Icon={Icon.MaterialCommunityIcons}
+      Icon={Icon.AntDesign}
       focused={focused}
-      name="fire"
+      name="home"
     />
   ),
 }
@@ -43,7 +43,7 @@ const TopPicksStack = createStackNavigator(
 TopPicksStack.navigationOptions = {
   tabBarLabel: 'Explora',
   tabBarIcon: ({ focused }) => (
-    <TabBarIcon Icon={Icon.FontAwesome} focused={focused} name="diamond" />
+    <TabBarIcon Icon={Icon.MaterialCommunityIcons} focused={focused} name="coffee-outline" />
   ),
 }
 
@@ -81,7 +81,7 @@ ProfileStack.navigationOptions = {
   ),
 }
 
-const LoginStack = createStackNavigator(
+/*const LoginStack = createStackNavigator(
   {
     Login: LoginScreen,
   },
@@ -90,7 +90,7 @@ const LoginStack = createStackNavigator(
   },
 )
 
-LoginStack.navigationOptions = {
+/*LoginStack.navigationOptions = {
   tabBarLabel: 'Login',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
@@ -99,10 +99,10 @@ LoginStack.navigationOptions = {
       name="fire"
     />
   ),
-}
+}*/
 
 export default createBottomTabNavigator({
-  LoginStack,
+  //LoginStack,
   HomeStack,
   TopPicksStack,
   //MessagesStack,
