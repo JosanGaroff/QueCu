@@ -17,7 +17,7 @@ import {user, setUser} from '../../components/User';
 
 var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
 
-const RegisterScreen = ({ navigation }) => {
+const AlreadyRegisterScreen = ({ navigation }) => {
 
   function createUser(email, password, nombre, edad, descripcion, ciudad) {
               var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormRegistroServlet?email='+email+'&password='+password+'&descripcion='+descripcion+'&ciudad='+ciudad+'&nombre='+nombre;
@@ -45,7 +45,7 @@ const RegisterScreen = ({ navigation }) => {
 
               http_request.onreadystatechange = function() {
 
-                 if (http_request.readyState == 4  && http_request.state == 200) {
+                 if (http_request.readyState == 4  ) {
                     // Javascript function JSON.parse to parse JSON data
                     var jsonObj = JSON.parse(http_request.responseText);
 
@@ -65,8 +65,6 @@ const RegisterScreen = ({ navigation }) => {
                     // be accessed as jsonObj.name and jsonObj.country.
                    // document.getElementById("Name").innerHTML = jsonObj.name;
                    // document.getElementById("Country").innerHTML = jsonObj.country;
-                 }else{
-                   navigation.navigate('AlreadyRegisterScreen');
                  }
               }
 
@@ -101,7 +99,7 @@ const RegisterScreen = ({ navigation }) => {
 
       <Logo />
 
-      <Header>Crea tu cuenta</Header>
+      <Header>El email ya existe.</Header>
 
       <TextInput
         label="Nombre"
@@ -166,4 +164,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default memo(RegisterScreen);
+export default memo(AlreadyRegisterScreen);

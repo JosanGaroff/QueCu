@@ -5,6 +5,7 @@ import {
   LoginScreen,
   WrongLoginScreen,
   RegisterScreen,
+  AlreadyRegisterScreen,
   ForgotPasswordScreen,
   Dashboard,
 } from './login';
@@ -15,6 +16,7 @@ const Router = createStackNavigator(
     LoginScreen,
     WrongLoginScreen,
     RegisterScreen,
+    AlreadyRegisterScreen,
     ForgotPasswordScreen,
     Dashboard,
   },

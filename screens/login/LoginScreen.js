@@ -10,49 +10,10 @@ import { theme } from '../../core/theme';
 import { emailValidator, passwordValidator } from '../../core/utils';
 //import User from '../../components';
 const localhost= '192.168.0.11';
-/*
-import { AppLoading, Asset, Font, Icon } from 'expo'
-//import React from 'react'
-import { StatusBar } from 'react-native'
-import AppNavigator from '../../navigation/AppNavigator'
 
-/*export default class User extends React.Component {
-  state = {
-      data: [],
-      isLoading: true,
-      isLoadingComplete: false,
-    //  isLogged: false,
-    }
-}*/
-/*
-var usuario = {
-  getUser: function (email, password) {
-    fetch('http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-          }
-        })
-    .then((response) => response.json())
-        .then((json) => {
-          //this.setState({ data: json });
-          data = json;
-          console.log(JSON.stringify(json));
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-       //   this.setState({ isLoading: false });
-         usuario = JSON.parse(data)
-        });
-      },
-    removeItem: function(name){
-        document.cookie = name ]'=; expires=Thu, 01-Jan-70 00:00:01 GMT;';
-    }
-}
-*/
+import {user, setUser} from '../../components/User';
 
-var user = {ciudad:"Madrid", descripcion:"Nana", edad: "23", email:"", nombre:"Jose", password:""};
+var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
 
 const LoginScreen = ({ navigation }) => {
 
@@ -86,7 +47,9 @@ const LoginScreen = ({ navigation }) => {
                      // Javascript function JSON.parse to parse JSON data
                      var jsonObj = JSON.parse(http_request.responseText);
 
-                     user = jsonObj;
+                     usuario = jsonObj;
+                     console.log(usuario);
+                     setUser(usuario)
                      console.log(user);
 
                      if (user.email != "none"){
@@ -121,6 +84,12 @@ const LoginScreen = ({ navigation }) => {
     }
 
     loadUser(email.value, password.value);
+/*
+    if (user.email != "none"){
+      navigation.navigate('Dashboard');
+    }else{
+      navigation.navigate('WrongLoginScreen');
+    }*/
   };
 
   return (

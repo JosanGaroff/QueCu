@@ -1,94 +1,108 @@
 localhost = '192.168.0.11';
 
-export default class User extends React.Component {
-  state = {
-    user: ,
-    data: [],
-    isLoading: true,
-    isLoadingComplete: false,
-  }
+var user = {ciudad: "", descripcion:"" , edad:0 , email:"", nombre:"none", password:""};
 
-   getUser(email, password) {
+function loadUser(email, password) {
+  var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password;
+  var http_request = new XMLHttpRequest();
+  try{
+    // Opera 8.0+, Firefox, Chrome, Safari
+    http_request = new XMLHttpRequest();
+  }catch (e) {
+    // Internet Explorer Browsers
+    try{
+      http_request = new ActiveXObject("Msxml2.XMLHTTP");
 
-    fetch('http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password, {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Content-type': 'application/json'
-          }
-        })
-    .then((response) => response.json())
-        .then((json) => {
-          this.setState({ data: json });
-          console.log(this.state.data);
-        })
-        .catch((error) => console.error(error))
-        .finally(() => {
-          this.setState({ isLoading: false });
-        });
+    }catch (e) {
 
-  }
-}
+      try{
+        http_request = new ActiveXObject("Microsoft.XMLHTTP");
+      }catch (e) {
+        // Something went wrong
+        alert("Your browser broke!");
+        return false;
+      }
 
-/*  render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
-      return (
-        <AppLoading
-          startAsync={this._loadResourcesAsync}
-          onError={this._handleLoadingError}
-          onFinish={this._handleFinishLoading}
-        />
-      )
-    } else {
-      return (
-        <View style={styles.container}>
-        <Text >
-        {String(JSON.stringify(this.state.data))}
-        </Text>
-
-        <Button onPress={this.hacerLogin} title="Pulsa para login" />
-
-
-
-          <StatusBar hidden />
-          <AppNavigator />
-        </View>
-      )
     }
   }
-*/
-  _loadResourcesAsync = async () => {
-    return Promise.all([
-      Asset.loadAsync([
-        require('./assets/images/splash.png'),
-        require('./assets/images/icon.png'),
-      ]),
-      Font.loadAsync({
-        // This is the font that we are using for our tab bar
-        ...Icon.MaterialIcons.font,
-        ...Icon.MaterialCommunityIcons.font,
-        ...Icon.FontAwesome.font,
-        ...Icon.Feather.font,
-      }),
-    ])
+
+  return http_request.onreadystatechange = function() {
+
+    if (http_request.readyState == 4  ) {
+      // Javascript function JSON.parse to parse JSON data
+      var jsonObj = JSON.parse(http_request.responseText);
+
+      user = jsonObj;
+      console.log(user);
+      /*
+      if (user.email != "none"){
+      return true;
+    }
+    else{
+    return false;
   }
-
-  _handleLoadingError = error => {
-    // In this case, you might want to report the error to your error
-    // reporting service, for example Sentry
-    console.warn(error)
-  }
-
-  _handleFinishLoading = () => {
-    this.setState({ isLoadingComplete: true })
-  }
-
-
+  */
+  // jsonObj variable now contains the data structure and can
+  // be accessed as jsonObj.name and jsonObj.country.
+  // document.getElementById("Name").innerHTML = jsonObj.name;
+  // document.getElementById("Country").innerHTML = jsonObj.country;
+}
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-})
+http_request.open("GET", data_file, true);
+http_request.send();
+}
+
+function createUser(email, password, nombre, edad, descripcion, ciudad) {
+  var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormRegistroServlet?email='+email+'&password='+password+'&descripcion='+descripcion+'&ciudad='+ciudad+'&nombre='+nombre;
+  var http_request = new XMLHttpRequest();
+  try{
+    // Opera 8.0+, Firefox, Chrome, Safari
+    http_request = new XMLHttpRequest();
+  }catch (e) {
+    // Internet Explorer Browsers
+    try{
+      http_request = new ActiveXObject("Msxml2.XMLHTTP");
+
+    }catch (e) {
+
+      try{
+        http_request = new ActiveXObject("Microsoft.XMLHTTP");
+      }catch (e) {
+        // Something went wrong
+        alert("Your browser broke!");
+        return false;
+      }
+
+    }
+  }
+
+  http_request.onreadystatechange = function() {
+
+    if (http_request.readyState == 4  ) {
+      user = jsonObj;
+      console.log(user);
+
+      /*                           if (user.email != "none"){
+      navigation.navigate('Dashboard');
+    }
+    else{
+    navigation.navigate('WrongLoginScreen');
+  }*/
+
+  // jsonObj variable now contains the data structure and can
+  // be accessed as jsonObj.name and jsonObj.country.
+  // document.getElementById("Name").innerHTML = jsonObj.name;
+  // document.getElementById("Country").innerHTML = jsonObj.country;
+}
+}
+
+http_request.open("POST", data_file, true);
+http_request.send();
+}
+
+function setUser(usuario) {
+  user = usuario;
+}
+
+export {user, loadUser, createUser, setUser};

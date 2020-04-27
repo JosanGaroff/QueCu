@@ -19,7 +19,6 @@ localhost = '192.168.0.11';  // PONER CADA UNO LA DIRECCIÓN IP DE SU ORDENADOR
   state = {
 
     data: [],
-//    user: {ciudad:, descripcion:, edad: , email:, nombre:, password:},
     isLoading: true,
     isLoadingComplete: false,
     isLogged: false,
@@ -136,7 +135,7 @@ const styles = StyleSheet.create({
 const Dashboard = ({ navigation }) => (
   <View style={styles.container}>
     <StatusBar />
-    <AppNavigator />
+    <AppNavigator user={this.state.user}/>
   </View>
 );
 
