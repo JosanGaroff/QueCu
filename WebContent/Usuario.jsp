@@ -23,7 +23,6 @@
 <table border="1">
 <tr>
 <th>email</th>
-<th>password</th>
 <th>descripcion</th>
 <th>nombre</th>
 <th>ciudad</th>
@@ -32,9 +31,9 @@
 <c:forEach items="${usuarios}" var="usuari">
 <tr>
 <td>${usuari.email}</td>
-<td>${usuari.password}</td>
 <td>${usuari.descripcion}</td>
 <td>${usuari.nombre}</td>
+<td>${usuari.ciudad}</td>
 
 <td>
 		<form action="AmistadServlet">
@@ -54,15 +53,13 @@
 <h2>Eventos creados</h2>
 <table border="1">
 <tr>
-<th>descripcion</th>
-<th>usuario</th>
 <th>titulo</th>
+<th>descripcion</th>
 </tr>
 <c:forEach items="${eventos}" var="eventoi">
 <tr>
-<td>${eventoi.descripcion}</td>
-<td>${eventoi.user}</td>
 <td>${eventoi.titulo}</td>
+<td>${eventoi.descripcion}</td>
 
 <td>
 		<form action="AñadirParticipanteServlet">
@@ -86,11 +83,15 @@
 </form>
 
 
+<!-- COMENTADO --
 
 <h2>Ver eventos disponibles</h2>
 <form action="FormVerEventosServlet">
 	<button type="submit">Lista de eventos</button>
 </form>
+
+-->
+
 
 <h2>Editar perfil</h2>
 <form action="FormEditarServlet">
