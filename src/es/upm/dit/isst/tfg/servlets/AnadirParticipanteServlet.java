@@ -15,16 +15,16 @@ import es.upm.dit.isst.tfg.model.Evento;
 import es.upm.dit.isst.tfg.model.Usuario;
 
 /**
- * Servlet implementation class AñadirParticipanteServlet
+ * Servlet implementation class Aï¿½adirParticipanteServlet
  */
-@WebServlet("/AñadirParticipanteServlet")
-public class AñadirParticipanteServlet extends HttpServlet {
+@WebServlet("/AnadirParticipanteServlet")
+public class AnadirParticipanteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AñadirParticipanteServlet() {
+    public AnadirParticipanteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
