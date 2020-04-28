@@ -1,4 +1,4 @@
-localhost = '192.168.0.11';
+var localhost = '192.168.0.11';
 
 var user = {ciudad: "", descripcion:"" , edad:0 , email:"", nombre:"none", password:""};
 
@@ -105,4 +105,4 @@ function setUser(usuario) {
   user = usuario;
 }
 
-export {user, loadUser, createUser, setUser};
+export {localhost, user, loadUser, createUser, setUser};

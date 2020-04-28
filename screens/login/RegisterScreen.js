@@ -13,9 +13,7 @@ import {
   nameValidator,
 } from '../../core/utils';
 
-import {user, setUser} from '../../components/User';
-
-var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
+import {localhost, user, setUser} from '../../components/User';
 
 const RegisterScreen = ({ navigation }) => {
 
@@ -39,7 +37,6 @@ const RegisterScreen = ({ navigation }) => {
                        alert("Your browser broke!");
                        return false;
                     }
-
                  }
               }
 
@@ -91,7 +88,7 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
 
-    createUser(email.value, password.value, name.value, "0", "Descrición", "Ciudad");
+    createUser(email.value, password.value, name.value, "", "", "");
 
   };
 

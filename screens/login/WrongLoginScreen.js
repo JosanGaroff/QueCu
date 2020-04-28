@@ -9,7 +9,10 @@ import BackButton from '../../components/BackButton';
 import { theme } from '../../core/theme';
 import { emailValidator, passwordValidator } from '../../core/utils';
 
+import {localhost, user, setUser} from '../../components/User';
+
 const WrongLoginScreen = ({ navigation }) => {
+
 
   function loadUser(email, password) {
               var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password;
@@ -41,7 +44,9 @@ const WrongLoginScreen = ({ navigation }) => {
                     // Javascript function JSON.parse to parse JSON data
                     var jsonObj = JSON.parse(http_request.responseText);
 
-                    user = jsonObj;
+                    usuario = jsonObj;
+                    console.log(usuario);
+                    setUser(usuario)
                     console.log(user);
 
                     if (user.email != "none"){

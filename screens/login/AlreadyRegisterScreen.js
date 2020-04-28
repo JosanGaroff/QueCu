@@ -13,7 +13,7 @@ import {
   nameValidator,
 } from '../../core/utils';
 
-import {user, setUser} from '../../components/User';
+import {localhost, user, setUser} from '../../components/User';
 
 var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
 

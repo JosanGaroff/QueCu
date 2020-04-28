@@ -11,9 +11,7 @@ import { AppLoading, Asset, Font, Icon } from 'expo'
 import { StatusBar, StyleSheet, View, Text } from 'react-native'
 import AppNavigator from '../../navigation/AppNavigator'
 
-import user from './LoginScreen';
-
-localhost = '192.168.0.11';  // PONER CADA UNO LA DIRECCIÓN IP DE SU ORDENADOR
+import { localhost,  user } from './LoginScreen';
 
 
   state = {

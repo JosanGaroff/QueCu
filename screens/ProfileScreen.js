@@ -5,7 +5,7 @@ import Layout from '../constants/Layout'
 import { HomeScreenPics, myProfile } from '../constants/Pics'
 import { randomNo } from '../utils/randomNo'
 
-import user from './login/LoginScreen'
+import {user, setUser} from '../components/User';
 
 const { pic, title } = myProfile[0]
 
@@ -18,81 +18,15 @@ const Social = ({ name }) => (
   />
 )
 
+const imprime = () => {
+  console.log(user);
+}
+
+
 class ProfileScreen extends React.Component {
 
-/*  function loadUser(email, password) {
-              var data_file = ;
-              var http_request = new XMLHttpRequest();
-              try{
-                 // Opera 8.0+, Firefox, Chrome, Safari
-                 http_request = new XMLHttpRequest();
-              }catch (e) {
-                 // Internet Explorer Browsers
-                 try{
-                    http_request = new ActiveXObject("Msxml2.XMLHTTP");
-
-                 }catch (e) {
-
-                    try{
-                       http_request = new ActiveXObject("Microsoft.XMLHTTP");
-                    }catch (e) {
-                       // Something went wrong
-                       alert("Your browser broke!");
-                       return false;
-                    }
-
-                 }
-              }
-
-              http_request.onreadystatechange = function() {
-
-                 if (http_request.readyState == 4  ) {
-                    // Javascript function JSON.parse to parse JSON data
-                    var jsonObj = JSON.parse(http_request.responseText);
-
-                    user = jsonObj;
-                    console.log(user);
-
-                    if (user.email != "none"){
-                      navigation.navigate('Dashboard');
-                    }
-                    else{
-                      navigation.navigate('WrongLoginScreen');
-                    }
-
-                    // jsonObj variable now contains the data structure and can
-                    // be accessed as jsonObj.name and jsonObj.country.
-                   // document.getElementById("Name").innerHTML = jsonObj.name;
-                   // document.getElementById("Country").innerHTML = jsonObj.country;
-                 }
-              }
-
-              http_request.open("GET", data_file, true);
-              http_request.send();
-           }
-
-           componentDidMount() {
-
-            fetch('http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password, {
-                method: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-type': 'application/json'
-                  }
-                })
-            .then((response) => response.json())
-                .then((json) => {
-                  this.setState({ data: json });
-                  console.log(this.state.data);
-                })
-                .catch((error) => console.error(error))
-                .finally(() => {
-                  this.setState({ isLoading: false });
-                });
-
-          }
-    */
   render() {
+    imprime();
     return (
       <SafeAreaView style={styles.container}>
         <View style={styles.imageContainer}>

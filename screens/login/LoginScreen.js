@@ -9,9 +9,8 @@ import BackButton from '../../components/BackButton';
 import { theme } from '../../core/theme';
 import { emailValidator, passwordValidator } from '../../core/utils';
 //import User from '../../components';
-const localhost= '192.168.0.11';
 
-import {user, setUser} from '../../components/User';
+import {localhost, user, setUser} from '../../components/User';
 
 var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
 

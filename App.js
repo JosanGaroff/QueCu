@@ -14,6 +14,7 @@ import App from './screens';
 import { theme } from './core/theme';
 
 //var user = {ciudad:"Madrid", descripcion:"Nana", edad: "23", email:"", nombre:"Jose", password:""};
+import localhost from './components/User';
 
 const Main = () => (
 //render(){
