@@ -36,6 +36,8 @@ public class FormRegistroServlet extends HttpServlet {
 		String descripcion = req.getParameter("descripcion");
 		String ciudad = req.getParameter("ciudad");
 		String nombre = req.getParameter("nombre");
+		String edad = req.getParameter("edad");
+	//	int edadInt = Integer.parseInt(edad);
 		
 		Usuario user = new Usuario();
 		user.setEmail(email);
@@ -43,10 +45,11 @@ public class FormRegistroServlet extends HttpServlet {
 		user.setDescripcion(descripcion);
 		user.setCiudad(ciudad);
 		user.setNombre(nombre);
+		user.setEdad(edad);
 		
 		UsuarioDAOImplementation.getInstancia().create(user);
 		
-		req.getSession().setAttribute("user", user);
+		//req.getSession().setAttribute("user", user);
 		/*getServletContext().getRequestDispatcher("/UsuarioInicio.jsp").forward(req,resp);*/
 		
 		req.getSession().setAttribute("user", user);

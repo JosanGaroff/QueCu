@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 
 import es.upm.dit.isst.tfg.dao.EventoDAOImplementation;
 import es.upm.dit.isst.tfg.dao.UsuarioDAOImplementation;
-import es.upm.dit.isst.tfg.model.DatosJson;
 import es.upm.dit.isst.tfg.model.Evento;
 import es.upm.dit.isst.tfg.model.Usuario;
 
@@ -30,13 +29,29 @@ public class FormGetUser extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	boolean existe = false;
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
+		Usuario usuario = null;
 		
 		Collection<Usuario> usuarios =  UsuarioDAOImplementation.getInstancia().readAll();
 		Collection<Evento> eventos =  EventoDAOImplementation.getInstancia().readAll();
 
-		Usuario usuario = UsuarioDAOImplementation.getInstancia().login(email, password);
+		System.out.println(email);
+		System.out.println(password);
+		
+	/*	for (Usuario usuarioAux : usuarios) {
+			System.out.println(usuarioAux.getEmail());
+			
+			
+			if (usuarioAux.getEmail() == email && usuarioAux.getPassword() == password) {
+				System.out.println("-------[EXISTE]-------");
+				existe = true;
+				usuario = UsuarioDAOImplementation.getInstancia().login(email, password);
+			}
+		}*/
+		
+		usuario = UsuarioDAOImplementation.getInstancia().login(email, password);
 		
 		if ( null != usuario ) {
 			System.out.println("-------[LOGIN USER]-------");
@@ -69,7 +84,8 @@ public class FormGetUser extends HttpServlet {
 	        out.flush();
 			
 			
-		}
+			
+    	}
 	}
 	
 

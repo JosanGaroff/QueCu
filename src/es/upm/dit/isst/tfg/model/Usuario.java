@@ -18,6 +18,8 @@ public class Usuario implements Serializable {
 	private String descripcion;
 	private String nombre;
 	private String ciudad;
+	private String edad;
+	
 	@OneToMany
 	private Collection<Usuario> amigos;
 	
@@ -47,9 +49,10 @@ public class Usuario implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Usuario [email=" + email + ", password=" + password + ", descripcion=" + descripcion + "]";
+		return "Usuario [email=" + email + ", password=" + password + ", descripcion=" + descripcion + ", nombre="
+				+ nombre + ", edad=" + edad + ", ciudad=" + ciudad + "]";
 	}
-
+		
 	public Usuario() {
 		super();
 	}
@@ -131,4 +134,11 @@ public class Usuario implements Serializable {
 		return serialVersionUID;
 	}
 	
+	public String getEdad() {  //o int
+		return edad;
+	}
+
+	public void setEdad(String edad) {  //o int
+		this.edad = edad;
+	}
 }
