@@ -9,7 +9,7 @@ export const Card = ({ pic, title, caption }) => (
   <Tile
     imageSrc={pic}
     imageContainerStyle={styles.imageContainer}
-    activeOpacity={0.9}
+    activeOpacity={1}
     title={title}
     titleStyle={styles.title}
     caption={caption}
@@ -22,9 +22,12 @@ export const Card = ({ pic, title, caption }) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    borderRadius: 20,
     alignItems: 'center',
+    overflow: 'hidden'
   },
   imageContainer: {
+    borderRadius: 20,
     width: Layout.window.width - 0,
     height: Layout.window.height - BOTTOM_BAR_HEIGHT * 4 ,
     borderRadius: 20,

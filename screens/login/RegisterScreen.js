@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native';
 import Background from '../../components/Background';
 import Logo from '../../components/Logo';
 import Header from '../../components/Header';
@@ -11,14 +11,17 @@ import {
   emailValidator,
   passwordValidator,
   nameValidator,
+  ageValidator,
+  cityValidator,
+  descriptionValidator,
 } from '../../core/utils';
 
-import {localhost, user, setUser} from '../../components/User';
+import {mainUrl, user, setUser} from '../../components/User';
 
 const RegisterScreen = ({ navigation }) => {
 
   function createUser(email, password, nombre, edad, descripcion, ciudad) {
-              var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormRegistroServlet?email='+email+'&password='+password+'&descripcion='+descripcion+'&ciudad='+ciudad+'&nombre='+nombre;
+              var data_file = mainUrl + 'FormRegistroServlet?email='+email+'&password='+password+'&descripcion='+descripcion+'&ciudad='+ciudad+'&nombre='+nombre+'&edad='+edad;
               var http_request = new XMLHttpRequest();
               try{
                  // Opera 8.0+, Firefox, Chrome, Safari
@@ -42,7 +45,7 @@ const RegisterScreen = ({ navigation }) => {
 
               http_request.onreadystatechange = function() {
 
-                 if (http_request.readyState == 4  && http_request.state == 200) {
+                 if (http_request.readyState == 4 ) {
                     // Javascript function JSON.parse to parse JSON data
                     var jsonObj = JSON.parse(http_request.responseText);
 
@@ -51,19 +54,37 @@ const RegisterScreen = ({ navigation }) => {
                       setUser(usuario);
                       console.log(user);
 
-                    if (user.email != "none"){
+                    if (user.email == email){
+                      Alert.alert(
+                        "Registro completado",
+                        "¡Usuario creado con éxtio!",
+                        [
+                        {
+                          text: "OK"
+                        }
+                      ],{cancelable: false}
+                      );
                       navigation.navigate('Dashboard');
                     }
                     else{
-                      navigation.navigate('WrongLoginScreen');
+                      Alert.alert(
+                        "Error en el registro",
+                        "El email ya existe",
+                        [
+                        {
+                          text: "OK"
+                        }
+                      ],{cancelable: false}
+                      );
+                    //  navigation.navigate('WrongLoginScreen');
                     }
 
                     // jsonObj variable now contains the data structure and can
                     // be accessed as jsonObj.name and jsonObj.country.
                    // document.getElementById("Name").innerHTML = jsonObj.name;
                    // document.getElementById("Country").innerHTML = jsonObj.country;
-                 }else{
-                   navigation.navigate('AlreadyRegisterScreen');
+                 //}else{
+                   //navigation.navigate('AlreadyRegisterScreen');
                  }
               }
 
@@ -74,31 +95,42 @@ const RegisterScreen = ({ navigation }) => {
  const [email, setEmail] = useState({ value: '', error: '' });
  const [password, setPassword] = useState({ value: '', error: '' });
  const [name, setName] = useState ({ value: '', error: '' })
+ const [age, setAge] = useState({ value: '', error: '' });
+  const [city, setCity] = useState({ value: '', error: '' });
+   const [description, setDescription] = useState({ value: '', error: '' });
 
 
   const _onSignUpPressed = () => {
     const nameError = nameValidator(name.value);
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
+    const ageError = ageValidator(age.value);
+    const cityError = cityValidator(city.value);
+    const descriptionError = descriptionValidator(description.value);
 
-    if (emailError || passwordError || nameError) {
+    if (emailError || passwordError || nameError || ageError || cityError || descriptionError) {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
+      setAge({ ...age, error: ageError });
+      setCity({ ...city, error: cityError });
+      setDescription({ ...description, error: descriptionError });
       return;
     }
 
-    createUser(email.value, password.value, name.value, "", "", "");
+    createUser(email.value, password.value, name.value, age.value, description.value, city.value);
 
   };
 
   return (
+    <ScrollView>
     <Background>
       <BackButton goBack={() => navigation.navigate('HomeScreen')} />
 
       <Logo />
 
       <Header>Crea tu cuenta</Header>
+
 
       <TextInput
         label="Nombre"
@@ -124,7 +156,7 @@ const RegisterScreen = ({ navigation }) => {
 
       <TextInput
         label="Contraseña"
-        returnKeyType="done"
+        returnKeyType="next"
         value={password.value}
         onChangeText={text => setPassword({ value: text, error: '' })}
         error={!!password.error}
@@ -132,17 +164,47 @@ const RegisterScreen = ({ navigation }) => {
         secureTextEntry
       />
 
+      <TextInput
+        label="Edad"
+        returnKeyType="next"
+        value={age.value}
+        onChangeText={text => setAge({ value: text, error: '' })}
+        error={!!age.error}
+        errorText={age.error}
+      />
+
+      <TextInput
+        label="Ciudad"
+        returnKeyType="next"
+        value={city.value}
+        onChangeText={text => setCity({ value: text, error: '' })}
+        error={!!city.error}
+        errorText={city.error}
+      />
+
+      <TextInput
+        label="Descripción"
+        returnKeyType="done"
+        value={description.value}
+        onChangeText={text => setDescription({ value: text, error: '' })}
+        error={!!description.error}
+        errorText={description.error}
+      />
+
       <Button mode="contained" onPress={_onSignUpPressed} style={styles.button}>
         Regístrate
       </Button>
 
+
       <View style={styles.row}>
         <Text style={styles.label}>¿Ya tienes una cuenta? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
-          <Text style={styles.link}>Inicia sesión</Text>
+        <TouchableOpacity  onPress={() => navigation.navigate('LoginScreen')}>
+          <Text style={styles.link} >Inicia sesión</Text>
         </TouchableOpacity>
       </View>
+
     </Background>
+    </ScrollView>
   );
 };
 
@@ -155,7 +217,7 @@ const styles = StyleSheet.create({
   },
   row: {
     flexDirection: 'row',
-    marginTop: 4,
+    marginTop: 0,
   },
   link: {
     fontWeight: 'bold',

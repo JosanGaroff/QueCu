@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Alert } from 'react-native';
 import Background from '../../components/Background';
 import Logo from '../../components/Logo';
 import Header from '../../components/Header';
@@ -10,14 +10,14 @@ import { theme } from '../../core/theme';
 import { emailValidator, passwordValidator } from '../../core/utils';
 //import User from '../../components';
 
-import {localhost, user, setUser} from '../../components/User';
+import {mainUrl, user, setUser} from '../../components/User';
 
 var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
 
 const LoginScreen = ({ navigation }) => {
 
    function loadUser(email, password) {
-               var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password;
+               var data_file = mainUrl+'FormGetUser?email='+email+'&password='+password;
                var http_request = new XMLHttpRequest();
                try{
                   // Opera 8.0+, Firefox, Chrome, Safari
@@ -51,11 +51,20 @@ const LoginScreen = ({ navigation }) => {
                      setUser(usuario)
                      console.log(user);
 
-                     if (user.email != "none"){
+                     if (user.email == email){
                        navigation.navigate('Dashboard');
                      }
                      else{
-                       navigation.navigate('WrongLoginScreen');
+                       Alert.alert(
+                         "Error al hacer login",
+                         "Email y/o contraseña incorrectos",
+                         [
+                         {
+                           text: "OK"
+                         }
+                       ],{cancelable: false}
+                       );
+                      // navigation.navigate('WrongLoginScreen');
                      }
 
                      // jsonObj variable now contains the data structure and can

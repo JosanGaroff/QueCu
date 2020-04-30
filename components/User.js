@@ -1,6 +1,10 @@
 var localhost = '192.168.0.11';
 
-var user = {ciudad: "", descripcion:"" , edad:0 , email:"", nombre:"none", password:""};
+var mainUrl = 'http://'+localhost+':8080/Quecu/';
+
+var user = {ciudad: "", descripcion:"" , edad: "" , email:"", nombre:"none", password:""};
+
+var userFriends = [];
 
 function loadUser(email, password) {
   var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password;
@@ -105,4 +109,8 @@ function setUser(usuario) {
   user = usuario;
 }
 
-export {localhost, user, loadUser, createUser, setUser};
+function setFriends(amigos){
+  userFriends = amigos;
+}
+
+export {localhost, mainUrl, user, loadUser, createUser, setUser};

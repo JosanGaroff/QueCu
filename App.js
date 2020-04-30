@@ -30,8 +30,6 @@ const Main = () => (
 export default Main;
 
 
-localhost = '192.168.0.11';  // PONER CADA UNO LA DIRECCIÓN IP DE SU ORDENADOR
-
 
 /*  state = {
     data: [],

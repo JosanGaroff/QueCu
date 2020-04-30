@@ -11,16 +11,17 @@ import { AppLoading, Asset, Font, Icon } from 'expo'
 import { StatusBar, StyleSheet, View, Text } from 'react-native'
 import AppNavigator from '../../navigation/AppNavigator'
 
-import { localhost,  user } from './LoginScreen';
+import { mainUrl,  user } from './LoginScreen';
 
 
-  state = {
+/*  state = {
 
     data: [],
     isLoading: true,
     isLoadingComplete: false,
     isLogged: false,
   }
+  */
 //  hacerLogin = (email, password) =>{
 /*    console.log("has pulsado")
     let url = new URL('http://'+localhost+':8080/ISST-20-TFG/FormLoginServlet')
@@ -42,7 +43,7 @@ import { localhost,  user } from './LoginScreen';
 */
 componentDidMount = () =>{
 
-    fetch('http://'+localhost+':8080/ISST-20-TFG/FormPeticionJson', {
+    fetch(mainUrl+'FormPeticionJson', {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
 const Dashboard = ({ navigation }) => (
   <View style={styles.container}>
     <StatusBar />
-    <AppNavigator user={this.state.user}/>
+    <AppNavigator />
   </View>
 );
 

@@ -1,5 +1,5 @@
 import React, { memo, useState } from 'react';
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, Alert} from 'react-native';
 import Background from '../../components/Background';
 import Logo from '../../components/Logo';
 import Header from '../../components/Header';
@@ -9,13 +9,14 @@ import BackButton from '../../components/BackButton';
 import { theme } from '../../core/theme';
 import { emailValidator, passwordValidator } from '../../core/utils';
 
-import {localhost, user, setUser} from '../../components/User';
+import {mainUrl, user, setUser} from '../../components/User';
+
 
 const WrongLoginScreen = ({ navigation }) => {
 
 
   function loadUser(email, password) {
-              var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password;
+              var data_file = mainUrl +'FormGetUser?email='+email+'&password='+password;
               var http_request = new XMLHttpRequest();
               try{
                  // Opera 8.0+, Firefox, Chrome, Safari
@@ -31,7 +32,7 @@ const WrongLoginScreen = ({ navigation }) => {
                        http_request = new ActiveXObject("Microsoft.XMLHTTP");
                     }catch (e) {
                        // Something went wrong
-                       alert("Your browser broke!");
+                       Alert.alert("Your browser broke!");
                        return false;
                     }
 
@@ -50,9 +51,19 @@ const WrongLoginScreen = ({ navigation }) => {
                     console.log(user);
 
                     if (user.email != "none"){
+
                       navigation.navigate('Dashboard');
                     }
                     else{
+                      Alert.alert(
+                        "Error al hacer login",
+                        "Email y/o contraseña incorrectos",
+                        [
+                        {
+                          text: "OK"
+                        }
+                      ],{cancelable: false}
+                      );
                       navigation.navigate('WrongLoginScreen');
                     }
 

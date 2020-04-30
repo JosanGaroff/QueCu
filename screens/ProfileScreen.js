@@ -1,55 +1,299 @@
-import React from 'react'
-import { Image, SafeAreaView, StyleSheet, View } from 'react-native'
+import React, {useState} from 'react'
+import { Image, SafeAreaView, StyleSheet, View, Alert} from 'react-native'
 import { Divider, Icon, Text } from 'react-native-elements'
 import Layout from '../constants/Layout'
 import { HomeScreenPics, myProfile } from '../constants/Pics'
 import { randomNo } from '../utils/randomNo'
 
-import {user, setUser} from '../components/User';
+import Button from '../components/Button';
+import TextInput from '../components/TextInput';
+import { theme } from '../core/theme';
+import {
+  emailValidator,
+  passwordValidator,
+  nameValidator,
+  ageValidator,
+  cityValidator,
+  descriptionValidator,
+} from '../core/utils';
 
-const { pic, title } = myProfile[0]
+import {mainUrl, user, setUser} from '../components/User';
 
-const Social = ({ name }) => (
-  <Icon
-    name={name}
-    type="font-awesome"
-    containerStyle={styles.iconContainer}
-    size={32}
-  />
-)
+const { pic, title } = myProfile[0];
 
-const imprime = () => {
-  console.log(user);
-}
+  const Social = ({ name }) => (
+    <Icon
+      name={name}
+      type="font-awesome"
+      containerStyle={styles.iconContainer}
+      size={32}
+    />
+  )
 
+  const imprime = () => {
+    console.log(user);
+  }
+
+var usuario;
+
+var successfullyUploaded = false;
 
 class ProfileScreen extends React.Component {
 
-  render() {
-    imprime();
-    return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.imageContainer}>
-          <Image source={pic} style={styles.image} />
-        </View>
-        <Text h4 style={styles.name}>
-          {user.nombre}, {user.edad}
-        </Text>
-        <Text style={styles.desc}> Ciudad: {user.ciudad}</Text>
-        <Divider style={styles.divider} />
-        <Text style={styles.desc}>
-          {user.descripcion}
-        </Text>
+  state = {
 
-        <Divider style={styles.divider} />
-        <Text style={styles.desc}>Mis redes sociales:</Text>
-        <View style={styles.socialLinks}>
-          <Social name="snapchat" />
-          <Social name="instagram" />
-          <Social name="facebook-square" />
-        </View>
-      </SafeAreaView>
-    )
+    name: {value:user.nombre, error:""},
+    password: {value:user.contraseña, error:""},
+    email: {value:user.email, error:""},
+    age: {value:user.edad.toString(), error:""},
+    city: {value:user.ciudad, error:""},
+    description: {value:user.descripcion, error:""},
+    isEditing: false,
+
+  }
+
+/*  constructor(props) {
+      super(props);
+      this.state = {
+        usuario : user,
+        name: user.name,
+        editando : false
+      };
+    }*/
+/* componentDidMount(){
+
+     this.setState({ name: {value:user.nombre, error:""}});
+     this.setState({ email: {value:user.email, error:""}});
+     this.setState({ password: {value:user.contraseña, error:""}});
+     this.setState({ age: {value:user.edad, error:""}});
+     this.setState({ city: {value:user.ciudad, error:""}});
+     this.setState({ description: {value:user.descripcion, error:""}});
+     this.setState({ isEditing: false});
+
+ }*/
+
+ setName(name, error){
+   this.setState({ name: {value: name, error: error}});
+ }
+ setEmail(email, error){
+   this.setState({ email: {value: email, error:error}});
+ }
+ setPassword(password, error){
+   this.setState({ password: {value: password, error:error}});
+ }
+ setAge(age, error){
+   this.setState({ age: {value: age, error:error}});
+ }
+ setCity(city, error){
+   this.setState({ city: {value: city, error:error}});
+ }
+ setDescription(description, error){
+   this.setState({ description: {value: description, error:error}});
+ }
+ _onEditPressed(func){
+   console.log("1");
+    var nameError = nameValidator(this.state.name.value);
+    if (nameError == ""){nameError = false;}
+//    const emailError = emailValidator(this.state.email.value);
+//    const passwordError = passwordValidator(this.state.password.value);
+    var ageError = ageValidator(this.state.age.value.toString());
+    if (ageError == "" || ageError == undefined){ageError = false;}
+    var cityError = cityValidator(this.state.city.value);
+    if (cityError == ""){cityError = false;}
+    var descriptionError = descriptionValidator(this.state.description.value);
+    if (descriptionError == ""){descriptionError = false;}
+
+    console.log('name:' +nameError+'age:' +ageError+'city:' +cityError+'description:' +descriptionError);
+
+    if (nameError || ageError || cityError|| descriptionError) {
+      console.log("2A");
+      this.setName(this.state.name.value, nameError);
+//      this.setPassword(this.state.password.value, passwordError);
+//      this.setEmail(this.state.email.value, emailError);
+      this.setAge(this.state.age.value, ageError);
+      this.setCity(this.state.city.value, cityError);
+      this.setDescription(this.state.description.value, descriptionError);
+      return;
+    }
+    console.log("2B");
+    this.uploadNewProfile(func);
+  }
+
+  toogleEditando() {
+    if (this.state.isEditing == false ){
+      console.log(user.password);
+       this.setState({ isEditing: true});
+  /*    const [email, setEmail] = useState({ value: '', error: '' });
+      const [password, setPassword] = useState({ value: '', error: '' });
+      const [name, setName] = useState ({ value: '', error: '' })
+      const [age, setAge] = useState({ value: '', error: '' });
+      const [city, setCity] = useState({ value: '', error: '' });
+      const [description, setDescription] = useState({ value: '', error: '' });*/
+    }else{
+      const func = () => {this.setState({ isEditing: true});}
+      this._onEditPressed(func);
+
+        this.setState({ isEditing: false});
+
+    }
+  //  this.forceUpdate();
+  }
+
+uploadNewProfile(func){
+  console.log("3");
+  var data_file = mainUrl + 'FormGetEditarPerfil?email='+this.state.email.value+'&password='+this.state.password.value+'&descripcion='+this.state.description.value+'&ciudad='+this.state.city.value+'&nombre='+this.state.name.value+'&edad='+this.state.age.value;
+  var http_request = new XMLHttpRequest();
+  try{
+     // Opera 8.0+, Firefox, Chrome, Safari
+     http_request = new XMLHttpRequest();
+  }catch (e) {
+     // Internet Explorer Browsers
+     try{
+        http_request = new ActiveXObject("Msxml2.XMLHTTP");
+
+     }catch (e) {
+
+        try{
+           http_request = new ActiveXObject("Microsoft.XMLHTTP");
+        }catch (e) {
+           // Something went wrong
+           alert("Your browser broke!");
+           return false;
+        }
+     }
+  }
+
+  http_request.onreadystatechange = function(func) {
+console.log("4");
+     if (http_request.readyState == 4 ) {
+        // Javascript function JSON.parse to parse JSON data
+        var jsonObj = JSON.parse(http_request.responseText);
+
+        usuario = jsonObj;
+        console.log(usuario);
+          setUser(usuario);
+          console.log(user);
+
+        if (usuario.email == user.email){
+          console.log("5A");
+
+          Alert.alert(
+            "Completado",
+            "¡Perfil actualizado con éxtio!",
+            [
+            {
+              text: "OK", onPress: () => func
+            }
+          ],{cancelable: false}
+          );
+
+        }
+        else{
+          console.log("5B");
+          Alert.alert(
+            "Error en el registro",
+            "El email ya existe",
+            [
+            {
+              text: "OK"
+            }
+          ],{cancelable: false}
+          );
+        //  navigation.navigate('WrongLoginScreen');
+        }
+
+        // jsonObj variable now contains the data structure and can
+        // be accessed as jsonObj.name and jsonObj.country.
+       // document.getElementById("Name").innerHTML = jsonObj.name;
+       // document.getElementById("Country").innerHTML = jsonObj.country;
+     //}else{
+       //navigation.navigate('AlreadyRegisterScreen');
+     }
+     console.log("6");
+  }
+
+  http_request.open("GET", data_file, true);
+  http_request.send();
+}
+
+  render() {
+        imprime();
+
+    if (!this.state.isEditing){
+      return (
+        <SafeAreaView style={styles.container}>
+          <View style={styles.imageContainer}>
+            <Image source={pic} style={styles.image} />
+          </View>
+          <Text h4 style={styles.name}>
+            {this.state.name.value}, {this.state.age.value}
+          </Text>
+          <Text style={styles.desc}> Ciudad: {this.state.city.value}</Text>
+          <Divider style={styles.divider} />
+          <Text style={styles.desc}>
+            {this.state.description.value}
+          </Text>
+
+          <Divider style={styles.divider} />
+
+          <Text style={styles.desc}>Mis redes sociales:</Text>
+          <View style={styles.socialLinks}>
+            <Social name="snapchat" />
+            <Social name="instagram" />
+            <Social name="facebook-square" />
+          </View>
+          <Button onPress={() => this.toogleEditando()}>
+          <Text style={styles.link} >Editar Perfil</Text>
+          </Button>
+        </SafeAreaView>
+      )
+    }else{
+
+      return (
+        <SafeAreaView style={styles.container}>
+      <TextInput
+        label="Nombre"
+        returnKeyType="next"
+        value={this.state.name.value}
+        onChangeText={text => this.setName(text, "")}
+        error={!!this.state.name.error}
+        errorText={this.state.name.error}
+      />
+
+
+
+      <TextInput
+        label="Edad"
+        returnKeyType="next"
+        value={this.state.age.value}
+        onChangeText={text => this.setAge(text, "")}
+        error={!!this.state.age.error}
+        errorText={this.state.age.error}
+      />
+
+      <TextInput
+        label="Ciudad"
+        returnKeyType="next"
+        value={this.state.city.value}
+        onChangeText={text => this.setCity(text, "")}
+        error={!!this.state.city.error}
+        errorText={this.state.city.error}
+      />
+
+      <TextInput
+        label="Descripción"
+        returnKeyType="done"
+        value={this.state.description.value}
+        onChangeText={text => this.setDescription(text, "")}
+        error={!!this.state.description.error}
+        errorText={this.state.description.error}
+      />
+      <Button onPress={() => this.toogleEditando()}>
+      <Text style={styles.link} >Guardar cambios</Text>
+      </Button>
+    </SafeAreaView>
+  )
+    }
   }
 }
 
@@ -96,4 +340,29 @@ const styles = StyleSheet.create({
   },
 })
 
-export default ProfileScreen
+export default ProfileScreen;
+
+/*
+<TextInput
+  label="Email"
+  returnKeyType="next"
+  value={this.state.email.value}
+  onChangeText={text => this.setEmail({ value: text, error: '' })}
+  error={!!this.state.email.error}
+  errorText={this.state.email.error}
+  autoCapitalize="none"
+  autoCompleteType="email"
+  textContentType="emailAddress"
+  keyboardType="email-address"
+/>
+
+<TextInput
+  label="Contraseña"
+  returnKeyType="next"
+  value={this.state.password.value}
+  onChangeText={text => this.setPassword(text, "")}
+  error={!!this.state.password.error}
+  errorText={this.state.password.error}
+  secureTextEntry
+/>
+*/

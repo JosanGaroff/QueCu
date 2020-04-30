@@ -2,8 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 5406,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "packagerPid": 56611,
+  "expoServerNgrokUrl": "https://wg-u4d.anonymous.quecu.exp.direct",
+  "packagerNgrokUrl": "https://packager.wg-u4d.anonymous.quecu.exp.direct",
+  "ngrokPid": 56625
 }

@@ -13,14 +13,14 @@ import {
   nameValidator,
 } from '../../core/utils';
 
-import {localhost, user, setUser} from '../../components/User';
+import {mainUrl, user, setUser} from '../../components/User';
 
 var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
 
 const AlreadyRegisterScreen = ({ navigation }) => {
 
   function createUser(email, password, nombre, edad, descripcion, ciudad) {
-              var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormRegistroServlet?email='+email+'&password='+password+'&descripcion='+descripcion+'&ciudad='+ciudad+'&nombre='+nombre;
+              var data_file = mainUrl+'FormRegistroServlet?email='+email+'&password='+password+'&descripcion='+descripcion+'&ciudad='+ciudad+'&nombre='+nombre;
               var http_request = new XMLHttpRequest();
               try{
                  // Opera 8.0+, Firefox, Chrome, Safari
@@ -58,6 +58,7 @@ const AlreadyRegisterScreen = ({ navigation }) => {
                       navigation.navigate('Dashboard');
                     }
                     else{
+                      alert("El email ya existe.");
                       navigation.navigate('WrongLoginScreen');
                     }
 
