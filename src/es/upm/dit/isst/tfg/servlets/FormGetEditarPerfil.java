@@ -40,6 +40,7 @@ public class FormGetEditarPerfil extends HttpServlet {
 		String descripcion = req.getParameter("descripcion");
 		String nombre = req.getParameter("nombre");
 		String ciudad = req.getParameter("ciudad");
+		String edad = req.getParameter("edad");
 		
 		Usuario usuario = new Usuario();
 		usuario.setEmail(email);
@@ -47,6 +48,7 @@ public class FormGetEditarPerfil extends HttpServlet {
 		usuario.setDescripcion(descripcion);
 		usuario.setNombre(nombre);
 		usuario.setCiudad(ciudad);
+		usuario.setEdad(edad);
 		
 		UsuarioDAOImplementation.getInstancia().update(usuario);
 		

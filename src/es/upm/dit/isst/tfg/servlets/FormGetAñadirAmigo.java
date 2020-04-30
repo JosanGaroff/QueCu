@@ -16,12 +16,12 @@ import es.upm.dit.isst.tfg.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.tfg.model.Usuario;
 
 
-@WebServlet("/FormGetAñadirAmigo")
-public class FormGetAñadirAmigo extends HttpServlet {
+@WebServlet("/FormGetAÃ±adirAmigo")
+public class FormGetAÃ±adirAmigo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public FormGetAñadirAmigo() {
+    public FormGetAÃ±adirAmigo() {
         super();
         
     }
