@@ -51,6 +51,7 @@
 				<input type="text" name="ciudad" placeholder="Ciudad" value="${usuario.ciudad}">
 	    </c:otherwise>
 	</c:choose>
+	<input type="edad" name="edad" placeholder="Edad" value="${usuario.edad}">
 	
 	
 	

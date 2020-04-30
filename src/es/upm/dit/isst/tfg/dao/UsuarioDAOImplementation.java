@@ -45,7 +45,7 @@ public class UsuarioDAOImplementation implements UsuarioDAO {
 		public void update(Usuario user) {
 			Session session = SessionFactoryService.get().openSession();
 			session.beginTransaction();
-			session.saveOrUpdate( user );
+			session.update( user );
 			session.getTransaction().commit();
 			session.close();
 		}
