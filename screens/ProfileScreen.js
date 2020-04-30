@@ -43,7 +43,7 @@ class ProfileScreen extends React.Component {
   state = {
 
     name: {value:user.nombre, error:""},
-    password: {value:user.contraseña, error:""},
+    password: {value:user.password, error:""},
     email: {value:user.email, error:""},
     age: {value:user.edad.toString(), error:""},
     city: {value:user.ciudad, error:""},
@@ -64,7 +64,7 @@ class ProfileScreen extends React.Component {
 
      this.setState({ name: {value:user.nombre, error:""}});
      this.setState({ email: {value:user.email, error:""}});
-     this.setState({ password: {value:user.contraseña, error:""}});
+     this.setState({ password: {value:user.password, error:""}});
      this.setState({ age: {value:user.edad, error:""}});
      this.setState({ city: {value:user.ciudad, error:""}});
      this.setState({ description: {value:user.descripcion, error:""}});
