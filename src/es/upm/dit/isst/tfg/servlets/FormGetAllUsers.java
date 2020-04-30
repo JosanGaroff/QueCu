@@ -16,19 +16,18 @@ import es.upm.dit.isst.tfg.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.tfg.model.Usuario;
 
 /**
- * Servlet implementation class FormGetAllUser
+ * Servlet implementation class FormGetAllUsuarios
  */
-@WebServlet("/FormGetAllUser")
-public class FormGetAllUser extends HttpServlet {
+@WebServlet("/FormGetAllUsuarios")
+public class FormGetAllUsers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public FormGetAllUser() {
+    
+    public FormGetAllUsers() {
         super();
-       
+        
     }
 
-	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		Collection<Usuario> usuarios1 =  UsuarioDAOImplementation.getInstancia().readAll();
@@ -44,10 +43,8 @@ public class FormGetAllUser extends HttpServlet {
         out.print(JsonString);
         out.flush();
 		
-		
 	}
 
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 	}

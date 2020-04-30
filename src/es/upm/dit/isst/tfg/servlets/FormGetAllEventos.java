@@ -14,7 +14,6 @@ import com.google.gson.Gson;
 
 import es.upm.dit.isst.tfg.dao.EventoDAOImplementation;
 import es.upm.dit.isst.tfg.model.Evento;
-import es.upm.dit.isst.tfg.model.Usuario;
 
 /**
  * Servlet implementation class FormGetAllEventos
