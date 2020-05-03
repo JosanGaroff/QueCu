@@ -1,6 +1,6 @@
-var localhost = '192.168.0.11';
+var localhost = '192.168.1.43';
 
-var mainUrl = 'http://'+localhost+':8080/Quecu/';
+var mainUrl = 'http://'+localhost+':8080/ISST-20-TFG/';
 
 var user = {ciudad: "", descripcion:"" , edad: "" , email:"", nombre:"none", password:""};
 
