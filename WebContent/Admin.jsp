@@ -27,6 +27,12 @@
 <td>${usuari.email}</td>
 <td>${usuari.password}</td>
 <td>${usuari.descripcion}</td>
+<td>
+	<form action="FormDeleteUser">
+		<input type="hidden" name="email" value=${usuari.email} />
+		<button type="submit">Eliminar</button>  
+	</form> 
+</td>
 </tr>
 </c:forEach>
 </table>

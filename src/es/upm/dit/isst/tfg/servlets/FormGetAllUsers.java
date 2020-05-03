@@ -16,9 +16,9 @@ import es.upm.dit.isst.tfg.dao.UsuarioDAOImplementation;
 import es.upm.dit.isst.tfg.model.Usuario;
 
 /**
- * Servlet implementation class FormGetAllUsuarios
+ * Servlet implementation class FormGetAllUsers
  */
-@WebServlet("/FormGetAllUsuarios")
+@WebServlet("/FormGetAllUsers")
 public class FormGetAllUsers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -30,9 +30,13 @@ public class FormGetAllUsers extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
+	//	int id = Integer.parseInt(req.getParameter("id"));
+		
 		Collection<Usuario> usuarios1 =  UsuarioDAOImplementation.getInstancia().readAll();
 		
 		Usuario[] usuarios = usuarios1.toArray(new Usuario[usuarios1.size()]);
+		
+	//	Usuario usuario = usuarios[id];
 		
 		Gson gson = new Gson();
 		String JsonString = gson.toJson(usuarios);
