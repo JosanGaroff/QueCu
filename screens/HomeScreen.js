@@ -18,13 +18,29 @@ var loading = {
   caption: '',
 };
 
-var fotos = [];
-
 var usersStack = [];
 
 var amigos = [];
 
 var usuarios;
+
+var fotos = [
+  require('../assets/images/men/men1.jpg'),
+  require('../assets/images/men/men2.jpg'),
+  require('../assets/images/men/men3.jpg'),
+  require('../assets/images/men/men4.jpg'),
+  require('../assets/images/men/men5.jpg'),
+  require('../assets/images/men/men6.jpg'),
+  require('../assets/images/men/men7.jpg'),
+  require('../assets/images/men/men8.jpg'),
+  require('../assets/images/men/men9.jpg'),
+  require('../assets/images/men/men10.jpg'),
+  require('../assets/images/men/men11.jpg'),
+  require('../assets/images/men/men12.jpg'),
+  require('../assets/images/men/men13.jpg'),
+  require('../assets/images/men/men14.jpg'),
+  require('../assets/images/men/men15.jpg'),
+];
 
 class HomeScreen extends React.Component {
 
@@ -46,46 +62,6 @@ class HomeScreen extends React.Component {
     }
   }*/
 
-
-    getImages(){
-
-/*        fotos.push('../assets/images/men/men1.jpg');
-        fotos.push('../assets/images/men/men2.jpg');
-        fotos.push('../assets/images/men/men3.jpg');
-        fotos.push('../assets/images/men/men4.jpg');
-        fotos.push('../assets/images/men/men5.jpg');
-        fotos.push('../assets/images/men/men6.jpg');
-        fotos.push('../assets/images/men/men7.jpg');
-        fotos.push('../assets/images/men/men8.jpg');
-        fotos.push('../assets/images/men/men9.jpg');
-        fotos.push('../assets/images/men/men10.jpg');
-        fotos.push('../assets/images/men/men11.jpg');
-        fotos.push('../assets/images/men/men12.jpg');
-        fotos.push('../assets/images/men/men13.jpg');
-        fotos.push('../assets/images/men/men14.jpg');
-        fotos.push('../assets/images/men/men15.jpg');*/
-
-        fotos = [
-          require('../assets/images/men/men1.jpg'),
-          require('../assets/images/men/men2.jpg'),
-          require('../assets/images/men/men3.jpg'),
-          require('../assets/images/men/men4.jpg'),
-          require('../assets/images/men/men5.jpg'),
-          require('../assets/images/men/men6.jpg'),
-          require('../assets/images/men/men7.jpg'),
-          require('../assets/images/men/men8.jpg'),
-          require('../assets/images/men/men9.jpg'),
-          require('../assets/images/men/men10.jpg'),
-          require('../assets/images/men/men11.jpg'),
-          require('../assets/images/men/men12.jpg'),
-          require('../assets/images/men/men13.jpg'),
-          require('../assets/images/men/men14.jpg'),
-          require('../assets/images/men/men15.jpg'),
-        ];
-
-  //      console.log(fotos);
-
-    }
     getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
@@ -93,6 +69,10 @@ class HomeScreen extends React.Component {
   makeStack(amigos){
     for (var i=0; i<allUsers.length; i++){
       var user = allUsers[i];
+      console.log('------Empieza MakeStack------');
+      console.log(i);
+      console.log(allUsers[i])
+      console.log('------MakeStack------');
       var userStack = {
         pic: "",
         title: user.nombre,
@@ -100,48 +80,68 @@ class HomeScreen extends React.Component {
         caption: user.descripcion,
         email: user.email
       };
-      switch(i%15){
+      switch((i+fotos.length)%fotos.length){
         case 0:
         userStack.pic = require('../assets/images/men/men1.jpg');
+        break;
         case 1:
           userStack.pic = require('../assets/images/men/men2.jpg');
+          break;
         case 2:
         userStack.pic = require('../assets/images/men/men3.jpg');
+        break;
         case 3:
         userStack.pic = require('../assets/images/men/men4.jpg');
+        break;
         case 4:
         userStack.pic = require('../assets/images/men/men5.jpg');
+        break;
         case 5:
         userStack.pic = require('../assets/images/men/men6.jpg');
+        break;
         case 6:
         userStack.pic = require('../assets/images/men/men7.jpg');
+        break;
         case 7:
         userStack.pic = require('../assets/images/men/men8.jpg');
+        break;
         case 8:
         userStack.pic = require('../assets/images/men/men9.jpg');
+        break;
         case 9:
         userStack.pic = require('../assets/images/men/men10.jpg');
+        break;
         case 10:
         userStack.pic = require('../assets/images/men/men11.jpg');
+        break;
         case 11:
         userStack.pic = require('../assets/images/men/men12.jpg');
+        break;
         case 12:
         userStack.pic = require('../assets/images/men/men13.jpg');
+        break;
         case 13:
         userStack.pic = require('../assets/images/men/men14.jpg');
+        break;
         case 14:
         userStack.pic = require('../assets/images/men/men15.jpg');
+        break;
       }
-      console.log('\n\n\n\n-----MakeStack-----\n\n\n\n');
-    //  console.log(numero);
-      console.log('\n\n\n\n-----MakeStack-----\n\n\n\n');
+
 
       console.log('-----Aquí la pic-----\n\n\n\n');
+      console.log(i);
+      console.log((i+fotos.length)%fotos.length);
+      console.log(i+fotos.length);
       console.log(userStack.pic);
       console.log('\n\n\n\n----------');
       usersStack.push(userStack);
     }
+
     this.setState({usersStack: usersStack})
+    console.log('\n\n\n\n-----After MakeStack-----\n\n\n\n');
+    console.log(this.state.usersStack);
+    console.log('\n\n\n\n-----Termina MakeStack-----\n\n\n\n');
   }
 
 /*  componentDidMount(){
@@ -246,7 +246,7 @@ makeFriend(newFriend){
          .then((json) => {
            this.setState({ userFriends: json });
            setFriends(json);
-           console.log('-----Aquí en el fetch-----\n\n\n\n');
+           console.log('-----Aquí en el fetch de new friend-----\n\n\n\n');
            console.log(this.state.userFriends);
            console.log('\n\n\n\n----------');
          })
@@ -293,8 +293,7 @@ makeFriend(newFriend){
            this.setState({ isLoading: false });
          });
    //this.getImages();
-setTimeout(() => {  console.log("Timeout"); }, 5000);
-   console.log('-----Aquí allUsers-----\n\n\n\n');
+//   console.log('-----Aquí allUsers-----\n\n\n\n');
    console.log(allUsers);
    console.log('\n\n\n\n----------');
 

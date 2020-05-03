@@ -2,8 +2,8 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
-  "packagerPid": 2458,
-  "expoServerNgrokUrl": "https://k9-uid.anonymous.quecu.exp.direct",
-  "packagerNgrokUrl": "https://packager.k9-uid.anonymous.quecu.exp.direct",
-  "ngrokPid": 2473
+  "packagerPid": 1824,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
