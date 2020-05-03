@@ -6,6 +6,12 @@ var user = {ciudad: "", descripcion:"" , edad: "" , email:"", nombre:"none", pas
 
 var userFriends = [];
 
+var userFoto;
+
+function setFoto(foto){
+  userFoto = foto;
+}
+
 function loadUser(email, password) {
   var data_file = 'http://'+localhost+':8080/ISST-20-TFG/FormGetUser?email='+email+'&password='+password;
   var http_request = new XMLHttpRequest();
@@ -118,4 +124,4 @@ function setAllUsers(usuarios) {
   allUsers = usuarios;
 }
 
-export {localhost, mainUrl, user, loadUser, createUser, setUser, allUsers, setAllUsers};
+export {localhost, mainUrl, user, loadUser, createUser, setUser, allUsers, setAllUsers, setFoto};

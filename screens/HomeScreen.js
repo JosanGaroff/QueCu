@@ -10,7 +10,7 @@ import shuffleArray from '../utils/shuffleArray'
 import randomNo from '../utils/randomNo'
 
 
-import {mainUrl, user, userFriends, setFriends, allUsers} from '../components/User';
+import {mainUrl, user, userFriends, setFriends, allUsers, setFoto, fotoUser} from '../components/User';
 
 var loading = {
   pic: require('../assets/loading.gif'),
@@ -135,7 +135,15 @@ class HomeScreen extends React.Component {
       console.log(i+fotos.length);
       console.log(userStack.pic);
       console.log('\n\n\n\n----------');
-      usersStack.push(userStack);
+      if (userStack.email == this.state.user.email){
+        setFoto(userStack.pic);
+        console.log('-----My pic-----\n\n\n\n');
+        console.log(userStack.pic);
+        console.log('\n\n\n\n----------');
+      }else{
+        usersStack.push(userStack);
+      }
+
     }
 
     this.setState({usersStack: usersStack})
