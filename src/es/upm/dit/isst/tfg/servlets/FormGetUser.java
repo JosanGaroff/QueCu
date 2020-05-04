@@ -62,7 +62,12 @@ public class FormGetUser extends HttpServlet {
 			
 			for (int i = 0; i<usuariosamigos.length; i++) {
 				Usuario aux = new Usuario();
+				usuariosamigos[i].setPassword(aux.getPassword());
 				usuariosamigos[i].setAmigos(aux.getAmigos());
+				usuariosamigos[i].setEdad(aux.getEdad());
+				usuariosamigos[i].setNombre(aux.getNombre());
+				usuariosamigos[i].setDescripcion (aux.getDescripcion());
+				usuariosamigos[i].setCiudad(aux.getCiudad());
 			}
 			
 			Gson gson = new Gson();
