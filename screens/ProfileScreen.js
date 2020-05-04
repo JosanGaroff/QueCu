@@ -230,9 +230,7 @@ console.log("4");
 }
 
 myFoto(){
-  console.log('\n\n\n\n-----my foto-----\n\n\n\n');
-  console.log(allUsers);
-  console.log('\n\n\n\n-----my foto-----\n\n\n\n');
+
   for (var i=0; i<allUsers.length; i++){
     var userAux = allUsers[i];
     if (user.email == userAux.email){

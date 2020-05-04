@@ -18,8 +18,6 @@ var loading = {
   caption: '',
 };
 
-var amigos = [];
-
 var usuarios;
 
 var fotos = [
@@ -65,10 +63,12 @@ class HomeScreen extends React.Component {
   }
 
   makeStack(amigos){
+    this.setState({cont: 0});
     var usersStackAux = [];
+    console.log('------Empieza MakeStack------');
+    console.log(amigos);
     for (var i=0; i<allUsers.length; i++){
       var user = allUsers[i];
-      console.log('------Empieza MakeStack------');
       var userStack = {
         pic: "",
         title: user.nombre+', '+user.edad,
@@ -123,16 +123,22 @@ class HomeScreen extends React.Component {
         userStack.pic = require('../assets/images/men/men15.jpg');
         break;
       }
-
         if (userStack.email == this.state.user.email){
+          console.log("Entra a mi foto");
           setFoto(userStack.pic);
         }else{
           var isAmigo = false;
           if (amigos != undefined && amigos.length > 0 ){
+            console.log("\n\n\n-----Amigos en makestack-----");
+            console.log(amigos);
             for (var j=0; j<amigos.length; j++){
               var amigo = amigos[j];
+              console.log("\n\n\n-----Amigo en makestack-----");
+              console.log(amigo);
               if (userStack.email == amigo.email){
+                console.log(isAmigo);
                 isAmigo = true;
+                console.log(isAmigo);
               }
             }
           }
@@ -250,7 +256,7 @@ increaseCont(){
 
 callGetFriends(){
   console.log('-----Comienza el callGetFriends-----\n\n\n\n');
-  fetch(mainUrl +'FormGetAllAmigos?usuarioSesionActual_email='+this.state.user.email, {
+  fetch(mainUrl +'FormGetUser?email='+this.state.user.email+'&password='+user.password, {
          method: 'GET',
          headers: {
              'Accept': 'application/json',
@@ -259,12 +265,13 @@ callGetFriends(){
          })
          .then((response) => response.json())
                  .then((json) => {
-                      this.setState({ userFriends: json });
-                      setFriends(json);
+                      this.setState({ userFriends: json.amigos });
                       console.log('-----Se ha realizado el callGetFriends-----\n\n\n\n');
                     })
                     .catch((error) => console.error(error))
                     .finally(() => {
+
+                      //setFriends(this.state.userFriends);
                       this.makeStack(this.state.userFriends);
                     });
 
@@ -317,6 +324,7 @@ makeFriend(newFriend){
  }
 
    componentDidMount(){
+  //   this.callGetFriends();
   //   fetch(mainUrl +'FormGetAllAmigos?usuarioSesionActual_email='+user.email, {
   fetch(mainUrl +'FormGetAllEventos', {
          method: 'GET',
@@ -333,7 +341,7 @@ makeFriend(newFriend){
          .finally(() => {
     //       setTimeout(() => {  console.log("Fetch"); }, 2000);
     //       setFriends(amigos);
-           this.makeStack();
+           this.makeStack(user.amigos);
            this.setState({ isLoading: false });
          });
    //this.getImages();
