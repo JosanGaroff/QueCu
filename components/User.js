@@ -2,11 +2,13 @@ var localhost = '192.168.0.11';
 
 var mainUrl = 'http://'+localhost+':8080/Quecu/';
 
-var user = {ciudad: "", descripcion:"" , edad: "" , email:"", nombre:"none", password:""};
+var user = {ciudad: "", descripcion:"" , edad: "" , email:"", nombre:"none", password:"", amigos:[]};
 
 var userFriends = [];
 
 var userFoto;
+
+var allUsers = [];
 
 function setFoto(foto){
   userFoto = foto;
@@ -38,7 +40,7 @@ function loadUser(email, password) {
 
   return http_request.onreadystatechange = function() {
 
-    if (http_request.readyState == 4  ) {
+    if (http_request.readyState == 4 && http_request.status == 200 ) {
       // Javascript function JSON.parse to parse JSON data
       var jsonObj = JSON.parse(http_request.responseText);
 
@@ -118,7 +120,6 @@ function setUser(usuario) {
 function setFriends(amigos){
   userFriends = amigos;
 }
-var allUsers = [];
 
 function setAllUsers(usuarios) {
   allUsers = usuarios;

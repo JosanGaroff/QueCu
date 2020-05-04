@@ -18,8 +18,6 @@ var loading = {
   caption: '',
 };
 
-var usersStack = [];
-
 var amigos = [];
 
 var usuarios;
@@ -67,16 +65,14 @@ class HomeScreen extends React.Component {
   }
 
   makeStack(amigos){
+    var usersStackAux = [];
     for (var i=0; i<allUsers.length; i++){
       var user = allUsers[i];
       console.log('------Empieza MakeStack------');
-      console.log(i);
-      console.log(allUsers[i])
-      console.log('------MakeStack------');
       var userStack = {
         pic: "",
-        title: user.nombre,
-        age: user.edad,
+        title: user.nombre+', '+user.edad,
+  //      age: user.edad,
         caption: user.descripcion,
         email: user.email
       };
@@ -128,27 +124,37 @@ class HomeScreen extends React.Component {
         break;
       }
 
-
-      console.log('-----Aquí la pic-----\n\n\n\n');
-      console.log(i);
-      console.log((i+fotos.length)%fotos.length);
-      console.log(i+fotos.length);
-      console.log(userStack.pic);
-      console.log('\n\n\n\n----------');
-      if (userStack.email == this.state.user.email){
-        setFoto(userStack.pic);
-        console.log('-----My pic-----\n\n\n\n');
-        console.log(userStack.pic);
-        console.log('\n\n\n\n----------');
-      }else{
-        usersStack.push(userStack);
+        if (userStack.email == this.state.user.email){
+          setFoto(userStack.pic);
+        }else{
+          var isAmigo = false;
+          if (amigos != undefined && amigos.length > 0 ){
+            for (var j=0; j<amigos.length; j++){
+              var amigo = amigos[j];
+              if (userStack.email == amigo.email){
+                isAmigo = true;
+              }
+            }
+          }
+          if (!isAmigo){
+          usersStackAux.push(userStack);
+        }
       }
-
+    }
+    if (usersStackAux.length == 0){
+      var userStack = {
+        pic: require('../assets/images/men/nousers.jpg'),
+        title: "",
+      //  age: user.edad,
+        caption: "",
+        email: ""
+      };
+      usersStackAux.push(userStack);
     }
 
-    this.setState({usersStack: usersStack})
-    console.log('\n\n\n\n-----After MakeStack-----\n\n\n\n');
-    console.log(this.state.usersStack);
+
+
+    this.setState({usersStack: usersStackAux})
     console.log('\n\n\n\n-----Termina MakeStack-----\n\n\n\n');
   }
 
@@ -237,12 +243,36 @@ class HomeScreen extends React.Component {
 
 increaseCont(){
   this.setState({cont: this.state.cont + 1})
-  //if (this.state.cont == this.state.usersStack.length){
-  //  this.setState({cont: 0})
-  //}
+  if (this.state.cont == this.state.usersStack.length){
+    this.setState({cont: 0})
+  }
+}
+
+callGetFriends(){
+  console.log('-----Comienza el callGetFriends-----\n\n\n\n');
+  fetch(mainUrl +'FormGetAllAmigos?usuarioSesionActual_email='+this.state.user.email, {
+         method: 'GET',
+         headers: {
+             'Accept': 'application/json',
+             'Content-type': 'application/json'
+           }
+         })
+         .then((response) => response.json())
+                 .then((json) => {
+                      this.setState({ userFriends: json });
+                      setFriends(json);
+                      console.log('-----Se ha realizado el callGetFriends-----\n\n\n\n');
+                    })
+                    .catch((error) => console.error(error))
+                    .finally(() => {
+                      this.makeStack(this.state.userFriends);
+                    });
+
+
 }
 
 makeFriend(newFriend){
+  var successfully = false;
   fetch(mainUrl +'FormGetAñadirAmigo?usuarioSesionActual_email='+this.state.user.email+'&usuarioAgregar_email='+newFriend, {
          method: 'GET',
          headers: {
@@ -250,31 +280,40 @@ makeFriend(newFriend){
              'Content-type': 'application/json'
            }
          })
-     .then((response) => response.json())
-         .then((json) => {
-           this.setState({ userFriends: json });
-           setFriends(json);
-           console.log('-----Aquí en el fetch de new friend-----\n\n\n\n');
-           console.log(this.state.userFriends);
-           console.log('\n\n\n\n----------');
-         })
-         .catch((error) => console.error(error))
-         .finally(() => {
-    //       setTimeout(() => {  console.log("Fetch"); }, 2000);
-           this.makeStack(this.state.userFriends);
-         });
+         .then((response) => response.json())
+                 .then((json) => {
+                   console.log('-----Se hace la peticion-----\n\n\n\n');
+                      if (json.email == "completed"){
+                        console.log('-----La respuesa es buena-----\n\n\n\n');
+                        successfully = true;
+                      }
+                    })
+                    .catch((error) => console.error(error))
+                    .finally(() => {
+               //       setTimeout(() => {  console.log("Fetch"); }, 2000);
+                      if (successfully){
+                        console.log('-----Se va a llamar a callGetFriends-----\n\n\n\n');
+                        this.callGetFriends();
+                      //  this.makeStack(this.state.userFriends);
+                      }
+
+                    });
 
 }
 
  _onSwipedLeft() {
    this.increaseCont();
-   console.log("No friends...")
+   console.log("No friends...");
  }
 
  _onSwipedRight() {
-  // this.makeFriend(this.state.usersStack[this.state.cont]);
-   this.increaseCont();
-   console.log("New friend!")
+   if (this.state.usersStack.length == 1 && this.state.usersStack[0].email == ""){
+     console.log("No more users");
+   }else{
+     this.makeFriend(this.state.usersStack[this.state.cont].email);
+     this.increaseCont();
+     console.log("New friend!");
+   }
  }
 
    componentDidMount(){
@@ -289,9 +328,6 @@ makeFriend(newFriend){
      .then((response) => response.json())
          .then((json) => {
            this.setState({ allUsers: json });
-           console.log('-----Aquí en el fetch-----\n\n\n\n');
-           console.log(this.state.allUsers);
-           console.log('\n\n\n\n----------');
          })
          .catch((error) => console.error(error))
          .finally(() => {
@@ -302,8 +338,6 @@ makeFriend(newFriend){
          });
    //this.getImages();
 //   console.log('-----Aquí allUsers-----\n\n\n\n');
-   console.log(allUsers);
-   console.log('\n\n\n\n----------');
 
 
 
@@ -327,7 +361,7 @@ makeFriend(newFriend){
     return (
       <SafeAreaView style={styles.container}>
         <Swiper
-          cards={shuffleArray(this.state.usersStack)}    //Swiper tiene variables para saber si desliza a izq o drcha
+          cards={this.state.usersStack}    //Swiper tiene variables para saber si desliza a izq o drcha
           renderCard={Card}
           infinite
           backgroundColor="white"
