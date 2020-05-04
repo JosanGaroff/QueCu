@@ -45,7 +45,7 @@ class ProfileScreen extends React.Component {
     name: {value:user.nombre, error:""},
     password: {value:user.password, error:""},
     email: {value:user.email, error:""},
-    age: {value:user.edad, error:""},
+    age: {value:user.edad.toString(), error:""},
     city: {value:user.ciudad, error:""},
     description: {value:user.descripcion, error:""},
     isEditing: false,

@@ -112,5 +112,10 @@ function setUser(usuario) {
 function setFriends(amigos){
   userFriends = amigos;
 }
+var allUsers = [];
 
-export {localhost, mainUrl, user, loadUser, createUser, setUser};
+function setAllUsers(usuarios) {
+  allUsers = usuarios;
+}
+
+export {localhost, mainUrl, user, loadUser, createUser, setUser, allUsers, setAllUsers};
