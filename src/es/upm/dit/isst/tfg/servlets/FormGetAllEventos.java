@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 
 import es.upm.dit.isst.tfg.dao.EventoDAOImplementation;
 import es.upm.dit.isst.tfg.model.Evento;
+import es.upm.dit.isst.tfg.model.Usuario;
 
 /**
  * Servlet implementation class FormGetAllEventos
@@ -33,6 +34,16 @@ public class FormGetAllEventos extends HttpServlet {
 		Collection<Evento> eventos1 =  EventoDAOImplementation.getInstancia().readAll();
 		
 		Evento[] eventos = eventos1.toArray(new Evento[eventos1.size()]);
+		
+		for (int i = 0; i<eventos.length; i++) {
+			
+			Usuario[] participantes = eventos[i].getParticipantes().toArray(new Usuario[eventos[i].getParticipantes().size()]);
+			
+			for (int j = 0; j<participantes.length; j++) {
+				Usuario aux = new Usuario();
+				participantes[j].setAmigos(aux.getAmigos());
+			}
+		}
 		
 		Gson gson = new Gson();
 		String JsonString = gson.toJson(eventos);

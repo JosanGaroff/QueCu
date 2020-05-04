@@ -43,10 +43,21 @@ public class FormGetAñadirAmigo extends HttpServlet {
 		usuarioActual.setAmigos(amigosTemp);
 		UsuarioDAOImplementation.getInstancia().update(usuarioActual);
 		
-		Collection<Usuario> amigos = usuarioActual.getAmigos();
+		Collection<Usuario> amigos1 = usuarioActual.getAmigos();
+		
+		Usuario[] amigos = amigos1.toArray(new Usuario[amigos1.size()]);
+		
+		for (int i = 0; i<amigos.length; i++) {
+			Usuario aux = new Usuario();
+			amigos[i].setAmigos(aux.getAmigos());
+		}
+		
+		Usuario completed = new Usuario();
+		
+		completed.setEmail("completed");
 		
 		Gson gson = new Gson();
-		String JsonString = gson.toJson(amigos);
+		String JsonString = gson.toJson(completed);
 		
 		PrintWriter out = resp.getWriter();
         resp.setContentType("application/json");

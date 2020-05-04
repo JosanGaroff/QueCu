@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Usuario implements Serializable {
@@ -20,7 +21,7 @@ public class Usuario implements Serializable {
 	private String ciudad;
 	private String edad;
 	
-	@OneToMany
+	@ManyToMany
 	private Collection<Usuario> amigos;
 	
 /*	

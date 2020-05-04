@@ -37,6 +37,11 @@ public class FormGetAllAmigos extends HttpServlet {
 		
 		Usuario[] usuariosamigos = amigosTemp.toArray(new Usuario[amigosTemp.size()]);
 		
+		for (int i = 0; i<usuariosamigos.length; i++) {
+			Usuario aux = new Usuario();
+			usuariosamigos[i].setAmigos(aux.getAmigos());
+		}
+		
 		Gson gson = new Gson();
 		String JsonString = gson.toJson(usuariosamigos);
 		

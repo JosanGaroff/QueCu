@@ -59,6 +59,7 @@ public class UsuarioDAOImplementation implements UsuarioDAO {
 			session.close();
 		}
 
+		@Override
 		public Collection<Usuario> readAll() {
 			Session session = SessionFactoryService.get().openSession();
 			session.beginTransaction();

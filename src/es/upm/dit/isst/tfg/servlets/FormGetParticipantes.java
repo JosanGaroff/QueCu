@@ -44,6 +44,11 @@ public class FormGetParticipantes extends HttpServlet {
 		
 		Usuario[] participantes = participantes1.toArray(new Usuario[participantes1.size()]);
 		
+		for (int i = 0; i<participantes.length; i++) {
+			Usuario aux = new Usuario();
+			participantes[i].setAmigos(aux.getAmigos());
+		}
+		
 		Gson gson = new Gson();
 		String JsonString = gson.toJson(participantes);
 		

@@ -58,6 +58,13 @@ public class FormGetUser extends HttpServlet {
 
 			req.getSession().setAttribute("usuario", usuario);
 			
+			Usuario[] usuariosamigos = usuario.getAmigos().toArray(new Usuario[usuario.getAmigos().size()]);
+			
+			for (int i = 0; i<usuariosamigos.length; i++) {
+				Usuario aux = new Usuario();
+				usuariosamigos[i].setAmigos(aux.getAmigos());
+			}
+			
 			Gson gson = new Gson();
 			String JsonString = gson.toJson(usuario);
 			

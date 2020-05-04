@@ -17,14 +17,14 @@ import es.upm.dit.isst.tfg.model.Usuario;
 /**
  * Servlet implementation class A�adirParticipanteServlet
  */
-@WebServlet("/AnadirParticipanteServlet")
-public class AnadirParticipanteServlet extends HttpServlet {
+@WebServlet("/AñadirParticipanteServlet")
+public class AñadirParticipanteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AnadirParticipanteServlet() {
+    public AñadirParticipanteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
