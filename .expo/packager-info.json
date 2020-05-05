@@ -2,8 +2,15 @@
   "devToolsPort": 19002,
   "expoServerPort": 19000,
   "packagerPort": 19001,
+<<<<<<< HEAD
   "packagerPid": 22724,
   "expoServerNgrokUrl": "https://2m-d35.anonymous.master.exp.direct",
   "packagerNgrokUrl": "https://packager.2m-d35.anonymous.master.exp.direct",
   "ngrokPid": 22787
+=======
+  "packagerPid": 34535,
+  "expoServerNgrokUrl": "https://k9-uid.anonymous.quecu.exp.direct",
+  "packagerNgrokUrl": "https://packager.k9-uid.anonymous.quecu.exp.direct",
+  "ngrokPid": 34549
+>>>>>>> e64bf397674d0a81eceeb4d188c9d9679396f845
 }

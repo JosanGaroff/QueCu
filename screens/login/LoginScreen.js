@@ -42,11 +42,14 @@ const LoginScreen = ({ navigation }) => {
 
     http_request.onreadystatechange = function() {
 
-       if (http_request.readyState == 4  ) {
+       if (http_request.readyState == 4 && http_request.status == 200 ) {
           // Javascript function JSON.parse to parse JSON data
           var jsonObj = JSON.parse(http_request.responseText);
           usuarios=jsonObj;
           setAllUsers(usuarios);
+          console.log('\n\n\n\n-----Los usuarios-----\n\n\n\n');
+          console.log(usuarios);
+          console.log('\n\n\n\n-----Los usuarios-----\n\n\n\n');
 
           // jsonObj variable now contains the data structure and can
           // be accessed as jsonObj.name and jsonObj.country.
@@ -86,7 +89,7 @@ const LoginScreen = ({ navigation }) => {
 
                http_request.onreadystatechange = function() {
 
-                  if (http_request.readyState == 4 ) {
+                  if (http_request.readyState == 4 && http_request.status == 200) {
                      // Javascript function JSON.parse to parse JSON data
                      var jsonObj = JSON.parse(http_request.responseText);
 
@@ -116,6 +119,17 @@ const LoginScreen = ({ navigation }) => {
                     // document.getElementById("Name").innerHTML = jsonObj.name;
                     // document.getElementById("Country").innerHTML = jsonObj.country;
                   }
+                  //else{
+                  /*  Alert.alert(
+                      "Error al contactar con el servidor",
+                      "Por favor, inténtelo de nuevo",
+                      [
+                      {
+                        text: "OK"
+                      }
+                    ],{cancelable: false}
+                    );
+                  }*/
                }
 
                http_request.open("GET", data_file, true);

@@ -17,7 +17,7 @@ import {
   descriptionValidator,
 } from '../core/utils';
 
-import {mainUrl, user, setUser} from '../components/User';
+import {mainUrl, user, setUser, userFoto, allUsers, setFoto} from '../components/User';
 
 const { pic, title } = myProfile[0];
 
@@ -38,6 +38,24 @@ var usuario;
 
 var successfullyUploaded = false;
 
+var fotos = [
+  require('../assets/images/men/men1.jpg'),
+  require('../assets/images/men/men2.jpg'),
+  require('../assets/images/men/men3.jpg'),
+  require('../assets/images/men/men4.jpg'),
+  require('../assets/images/men/men5.jpg'),
+  require('../assets/images/men/men6.jpg'),
+  require('../assets/images/men/men7.jpg'),
+  require('../assets/images/men/men8.jpg'),
+  require('../assets/images/men/men9.jpg'),
+  require('../assets/images/men/men10.jpg'),
+  require('../assets/images/men/men11.jpg'),
+  require('../assets/images/men/men12.jpg'),
+  require('../assets/images/men/men13.jpg'),
+  require('../assets/images/men/men14.jpg'),
+  require('../assets/images/men/men15.jpg'),
+];
+
 class ProfileScreen extends React.Component {
 
   state = {
@@ -49,6 +67,7 @@ class ProfileScreen extends React.Component {
     city: {value:user.ciudad, error:""},
     description: {value:user.descripcion, error:""},
     isEditing: false,
+    image: userFoto
 
   }
 
@@ -60,17 +79,11 @@ class ProfileScreen extends React.Component {
         editando : false
       };
     }*/
-/* componentDidMount(){
+ componentDidMount(){
 
-     this.setState({ name: {value:user.nombre, error:""}});
-     this.setState({ email: {value:user.email, error:""}});
-     this.setState({ password: {value:user.password, error:""}});
-     this.setState({ age: {value:user.edad, error:""}});
-     this.setState({ city: {value:user.ciudad, error:""}});
-     this.setState({ description: {value:user.descripcion, error:""}});
-     this.setState({ isEditing: false});
+this.myFoto();
 
- }*/
+ }
 
  setName(name, error){
    this.setState({ name: {value: name, error: error}});
@@ -216,6 +229,151 @@ console.log("4");
   http_request.send();
 }
 
+myFoto(){
+  var numHombres = 0;
+  var numMujeres = 0;
+  for (var i=0; i<allUsers.length; i++){
+    var userAux = allUsers[i];
+    if (userAux.sexo == 'HOMBRE'){
+      numHombres++;
+    }
+    if (userAux.sexo == 'MUJER'){
+      numMujeres++;
+    }
+    if (user.email == userAux.email){
+if (user.sexo == 'HOMBRE'){
+  switch((numHombres+fotos.length)%fotos.length){
+    case 0:
+    this.setState({image: require('../assets/images/men/men1.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 1:
+      this.setState({image: require('../assets/images/men/men2.jpg')});
+      setFoto(this.state.image);
+      break;
+    case 2:
+    this.setState({image: require('../assets/images/men/men3.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 3:
+    this.setState({image: require('../assets/images/men/men4.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 4:
+    this.setState({image: require('../assets/images/men/men5.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 5:
+    this.setState({image: require('../assets/images/men/men6.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 6:
+    this.setState({image: require('../assets/images/men/men7.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 7:
+    this.setState({image: require('../assets/images/men/men8.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 8:
+    this.setState({image: require('../assets/images/men/men9.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 9:
+    this.setState({image: require('../assets/images/men/men10.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 10:
+    this.setState({image: require('../assets/images/men/men11.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 11:
+    this.setState({image: require('../assets/images/men/men12.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 12:
+    this.setState({image: require('../assets/images/men/men13.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 13:
+    this.setState({image: require('../assets/images/men/men14.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 14:
+    this.setState({image: require('../assets/images/men/men15.jpg')});
+    setFoto(this.state.image);
+    break;
+  }
+}
+if (user.sexo == 'MUJER'){
+  switch((numMujeres+fotos.length)%fotos.length){
+    case 0:
+    this.setState({image: require('../assets/images/women/women1.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 1:
+      this.setState({image: require('../assets/images/women/women2.jpg')});
+      setFoto(this.state.image);
+      break;
+    case 2:
+    this.setState({image: require('../assets/images/women/women3.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 3:
+    this.setState({image: require('../assets/images/women/women4.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 4:
+    this.setState({image: require('../assets/images/women/women5.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 5:
+    this.setState({image: require('../assets/images/women/women6.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 6:
+    this.setState({image: require('../assets/images/women/women7.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 7:
+    this.setState({image: require('../assets/images/women/women8.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 8:
+    this.setState({image: require('../assets/images/women/women9.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 9:
+    this.setState({image: require('../assets/images/women/women10.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 10:
+    this.setState({image: require('../assets/images/women/women11.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 11:
+    this.setState({image: require('../assets/images/women/women12.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 12:
+    this.setState({image: require('../assets/images/women/women13.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 13:
+    this.setState({image: require('../assets/images/women/women14.jpg')});
+    setFoto(this.state.image);
+    break;
+    case 14:
+    this.setState({image: require('../assets/images/women/women15.jpg')});
+    setFoto(this.state.image);
+    break;
+  }
+}
+break;
+  }
+  }
+}
+
   render() {
         imprime();
 
@@ -223,7 +381,7 @@ console.log("4");
       return (
         <SafeAreaView style={styles.container}>
           <View style={styles.imageContainer}>
-            <Image source={pic} style={styles.image} />
+            <Image source={this.state.image} style={styles.image} />
           </View>
           <Text h4 style={styles.name}>
             {this.state.name.value}, {this.state.age.value}

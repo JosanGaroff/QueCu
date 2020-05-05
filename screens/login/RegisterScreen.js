@@ -5,6 +5,7 @@ import Logo from '../../components/Logo';
 import Header from '../../components/Header';
 import Button from '../../components/Button';
 import TextInput from '../../components/TextInput';
+import SelectSex from '../../components/SelectSex';
 import BackButton from '../../components/BackButton';
 import { theme } from '../../core/theme';
 import {
@@ -12,16 +13,68 @@ import {
   passwordValidator,
   nameValidator,
   ageValidator,
+  sexValidator,
   cityValidator,
   descriptionValidator,
 } from '../../core/utils';
 
-import {mainUrl, user, setUser} from '../../components/User';
+var todosUsuarios = [];
+
+import {mainUrl, user, setUser, setAllUsers, allUsers} from '../../components/User';
 
 const RegisterScreen = ({ navigation }) => {
 
-  function createUser(email, password, nombre, edad, descripcion, ciudad) {
-              var data_file = mainUrl + 'FormRegistroServlet?email='+email+'&password='+password+'&descripcion='+descripcion+'&ciudad='+ciudad+'&nombre='+nombre+'&edad='+edad;
+  function getUsers() {
+    var data_file = mainUrl+'FormGetAllUsers';
+    var http_request = new XMLHttpRequest();
+    try{
+       // Opera 8.0+, Firefox, Chrome, Safari
+       http_request = new XMLHttpRequest();
+    }catch (e) {
+       // Internet Explorer Browsers
+       try{
+          http_request = new ActiveXObject("Msxml2.XMLHTTP");
+
+       }catch (e) {
+
+          try{
+             http_request = new ActiveXObject("Microsoft.XMLHTTP");
+          }catch (e) {
+             // Something went wrong
+             alert("Your browser broke!");
+             return false;
+          }
+
+       }
+    }
+
+    http_request.onreadystatechange = function() {
+
+       if (http_request.readyState == 4 && http_request.status == 200 ) {
+          // Javascript function JSON.parse to parse JSON data
+          var jsonObj = JSON.parse(http_request.responseText);
+          usuarios=jsonObj;
+          todosUsuarios = usuarios;
+          setAllUsers(usuarios);
+          console.log('\n\n\n\n-----Los usuarios-----\n\n\n\n');
+          console.log(usuarios);
+          console.log('\n\n\n\n-----Los usuarios-----\n\n\n\n');
+
+          // jsonObj variable now contains the data structure and can
+          // be accessed as jsonObj.name and jsonObj.country.
+         // document.getElementById("Name").innerHTML = jsonObj.name;
+         // document.getElementById("Country").innerHTML = jsonObj.country;
+       }
+
+    }
+
+    http_request.open("GET", data_file, true);
+    http_request.send();
+  }
+
+
+  function createUser(email, password, nombre, edad, descripcion, ciudad, sexo) {
+              var data_file = mainUrl + 'FormRegistroServlet?email='+email+'&password='+password+'&descripcion='+descripcion+'&ciudad='+ciudad+'&nombre='+nombre+'&edad='+edad+'&sexo='+sexo;
               var http_request = new XMLHttpRequest();
               try{
                  // Opera 8.0+, Firefox, Chrome, Safari
@@ -64,6 +117,8 @@ const RegisterScreen = ({ navigation }) => {
                         }
                       ],{cancelable: false}
                       );
+                      todosUsuarios.push(usuario);
+                      setAllUsers(todosUsuarios);
                       navigation.navigate('Dashboard');
                     }
                     else{
@@ -96,6 +151,7 @@ const RegisterScreen = ({ navigation }) => {
  const [password, setPassword] = useState({ value: '', error: '' });
  const [name, setName] = useState ({ value: '', error: '' })
  const [age, setAge] = useState({ value: '', error: '' });
+ const [sex, setSex] = useState({ value: '', error: '' });
   const [city, setCity] = useState({ value: '', error: '' });
    const [description, setDescription] = useState({ value: '', error: '' });
 
@@ -105,20 +161,23 @@ const RegisterScreen = ({ navigation }) => {
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
     const ageError = ageValidator(age.value);
+    const sexError = sexValidator(sex.value);
     const cityError = cityValidator(city.value);
     const descriptionError = descriptionValidator(description.value);
 
-    if (emailError || passwordError || nameError || ageError || cityError || descriptionError) {
+    if (emailError || passwordError || nameError || ageError || cityError || descriptionError || sexError) {
       setName({ ...name, error: nameError });
       setEmail({ ...email, error: emailError });
       setPassword({ ...password, error: passwordError });
       setAge({ ...age, error: ageError });
+      setSex({ ...sex, error: sexError });
       setCity({ ...city, error: cityError });
       setDescription({ ...description, error: descriptionError });
       return;
     }
 
-    createUser(email.value, password.value, name.value, age.value, description.value, city.value);
+    getUsers();
+    createUser(email.value, password.value, name.value, age.value, description.value, city.value, sex.value);
 
   };
 
@@ -189,6 +248,15 @@ const RegisterScreen = ({ navigation }) => {
         onChangeText={text => setDescription({ value: text, error: '' })}
         error={!!description.error}
         errorText={description.error}
+      />
+
+      <SelectSex
+        label="Sexo"
+        returnKeyType="next"
+        selectedValue={sex.value}
+        onValueChange={(itemValue, itemIndex) => setSex({ value: itemValue, error: '' })}
+        error={!!sex.error}
+        errorText={sex.error}
       />
 
       <Button mode="contained" onPress={_onSignUpPressed} style={styles.button}>

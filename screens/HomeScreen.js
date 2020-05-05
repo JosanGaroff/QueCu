@@ -10,7 +10,7 @@ import shuffleArray from '../utils/shuffleArray'
 import randomNo from '../utils/randomNo'
 
 
-import {mainUrl, user, userFriends, setFriends, allUsers} from '../components/User';
+import {mainUrl, user, userFriends, setFriends, allUsers, setFoto, fotoUser} from '../components/User';
 
 var loading = {
   pic: require('../assets/loading.gif'),
@@ -18,13 +18,25 @@ var loading = {
   caption: '',
 };
 
-var fotos = [];
-
-var usersStack = [];
-
-var amigos = [];
-
 var usuarios;
+
+var fotos = [
+  require('../assets/images/men/men1.jpg'),
+  require('../assets/images/men/men2.jpg'),
+  require('../assets/images/men/men3.jpg'),
+  require('../assets/images/men/men4.jpg'),
+  require('../assets/images/men/men5.jpg'),
+  require('../assets/images/men/men6.jpg'),
+  require('../assets/images/men/men7.jpg'),
+  require('../assets/images/men/men8.jpg'),
+  require('../assets/images/men/men9.jpg'),
+  require('../assets/images/men/men10.jpg'),
+  require('../assets/images/men/men11.jpg'),
+  require('../assets/images/men/men12.jpg'),
+  require('../assets/images/men/men13.jpg'),
+  require('../assets/images/men/men14.jpg'),
+  require('../assets/images/men/men15.jpg'),
+];
 
 class HomeScreen extends React.Component {
 
@@ -46,102 +58,169 @@ class HomeScreen extends React.Component {
     }
   }*/
 
-
-    getImages(){
-
-/*        fotos.push('../assets/images/men/men1.jpg');
-        fotos.push('../assets/images/men/men2.jpg');
-        fotos.push('../assets/images/men/men3.jpg');
-        fotos.push('../assets/images/men/men4.jpg');
-        fotos.push('../assets/images/men/men5.jpg');
-        fotos.push('../assets/images/men/men6.jpg');
-        fotos.push('../assets/images/men/men7.jpg');
-        fotos.push('../assets/images/men/men8.jpg');
-        fotos.push('../assets/images/men/men9.jpg');
-        fotos.push('../assets/images/men/men10.jpg');
-        fotos.push('../assets/images/men/men11.jpg');
-        fotos.push('../assets/images/men/men12.jpg');
-        fotos.push('../assets/images/men/men13.jpg');
-        fotos.push('../assets/images/men/men14.jpg');
-        fotos.push('../assets/images/men/men15.jpg');*/
-
-        fotos = [
-          require('../assets/images/men/men1.jpg'),
-          require('../assets/images/men/men2.jpg'),
-          require('../assets/images/men/men3.jpg'),
-          require('../assets/images/men/men4.jpg'),
-          require('../assets/images/men/men5.jpg'),
-          require('../assets/images/men/men6.jpg'),
-          require('../assets/images/men/men7.jpg'),
-          require('../assets/images/men/men8.jpg'),
-          require('../assets/images/men/men9.jpg'),
-          require('../assets/images/men/men10.jpg'),
-          require('../assets/images/men/men11.jpg'),
-          require('../assets/images/men/men12.jpg'),
-          require('../assets/images/men/men13.jpg'),
-          require('../assets/images/men/men14.jpg'),
-          require('../assets/images/men/men15.jpg'),
-        ];
-
-  //      console.log(fotos);
-
-    }
     getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
   }
 
   makeStack(amigos){
+    this.setState({cont: 0});
+    var numHombres=0;
+    var numMujeres=0;
+    var usersStackAux = [];
+    console.log('------Empieza MakeStack------');
+    console.log(amigos);
     for (var i=0; i<allUsers.length; i++){
-      var user = allUsers[i];
+      var userAux = allUsers[i];
       var userStack = {
         pic: "",
-        title: user.nombre,
-        age: user.edad,
-        caption: user.descripcion,
-        email: user.email
+        title: userAux.nombre+', '+userAux.edad,
+  //      age: user.edad,
+        caption: userAux.descripcion,
+        email: userAux.email
       };
-      switch(i%15){
-        case 0:
-        userStack.pic = require('../assets/images/men/men1.jpg');
-        case 1:
-          userStack.pic = require('../assets/images/men/men2.jpg');
-        case 2:
-        userStack.pic = require('../assets/images/men/men3.jpg');
-        case 3:
-        userStack.pic = require('../assets/images/men/men4.jpg');
-        case 4:
-        userStack.pic = require('../assets/images/men/men5.jpg');
-        case 5:
-        userStack.pic = require('../assets/images/men/men6.jpg');
-        case 6:
-        userStack.pic = require('../assets/images/men/men7.jpg');
-        case 7:
-        userStack.pic = require('../assets/images/men/men8.jpg');
-        case 8:
-        userStack.pic = require('../assets/images/men/men9.jpg');
-        case 9:
-        userStack.pic = require('../assets/images/men/men10.jpg');
-        case 10:
-        userStack.pic = require('../assets/images/men/men11.jpg');
-        case 11:
-        userStack.pic = require('../assets/images/men/men12.jpg');
-        case 12:
-        userStack.pic = require('../assets/images/men/men13.jpg');
-        case 13:
-        userStack.pic = require('../assets/images/men/men14.jpg');
-        case 14:
-        userStack.pic = require('../assets/images/men/men15.jpg');
+      if (userAux.sexo == 'HOMBRE'){
+        numHombres++;
+        console.log("Otro hombre más. Total: "+numHombres);
+        switch((numHombres+fotos.length)%fotos.length){
+          case 0:
+          userStack.pic = require('../assets/images/men/men1.jpg');
+          break;
+          case 1:
+            userStack.pic = require('../assets/images/men/men2.jpg');
+            break;
+          case 2:
+          userStack.pic = require('../assets/images/men/men3.jpg');
+          break;
+          case 3:
+          userStack.pic = require('../assets/images/men/men4.jpg');
+          break;
+          case 4:
+          userStack.pic = require('../assets/images/men/men5.jpg');
+          break;
+          case 5:
+          userStack.pic = require('../assets/images/men/men6.jpg');
+          break;
+          case 6:
+          userStack.pic = require('../assets/images/men/men7.jpg');
+          break;
+          case 7:
+          userStack.pic = require('../assets/images/men/men8.jpg');
+          break;
+          case 8:
+          userStack.pic = require('../assets/images/men/men9.jpg');
+          break;
+          case 9:
+          userStack.pic = require('../assets/images/men/men10.jpg');
+          break;
+          case 10:
+          userStack.pic = require('../assets/images/men/men11.jpg');
+          break;
+          case 11:
+          userStack.pic = require('../assets/images/men/men12.jpg');
+          break;
+          case 12:
+          userStack.pic = require('../assets/images/men/men13.jpg');
+          break;
+          case 13:
+          userStack.pic = require('../assets/images/men/men14.jpg');
+          break;
+          case 14:
+          userStack.pic = require('../assets/images/men/men15.jpg');
+          break;
+        }
       }
-      console.log('\n\n\n\n-----MakeStack-----\n\n\n\n');
-    //  console.log(numero);
-      console.log('\n\n\n\n-----MakeStack-----\n\n\n\n');
+      if (userAux.sexo == 'MUJER'){
+          numMujeres++;
+          console.log("Otra mujer más. Total: "+numMujeres);
+          switch((numMujeres+fotos.length)%fotos.length){
+            case 0:
+            userStack.pic = require('../assets/images/women/women1.jpg');
+            break;
+            case 1:
+              userStack.pic = require('../assets/images/women/women2.jpg');
+              break;
+            case 2:
+            userStack.pic = require('../assets/images/women/women3.jpg');
+            break;
+            case 3:
+            userStack.pic = require('../assets/images/women/women4.jpg');
+            break;
+            case 4:
+            userStack.pic = require('../assets/images/women/women5.jpg');
+            break;
+            case 5:
+            userStack.pic = require('../assets/images/women/women6.jpg');
+            break;
+            case 6:
+            userStack.pic = require('../assets/images/women/women7.jpg');
+            break;
+            case 7:
+            userStack.pic = require('../assets/images/women/women8.jpg');
+            break;
+            case 8:
+            userStack.pic = require('../assets/images/women/women9.jpg');
+            break;
+            case 9:
+            userStack.pic = require('../assets/images/women/women10.jpg');
+            break;
+            case 10:
+            userStack.pic = require('../assets/images/women/women11.jpg');
+            break;
+            case 11:
+            userStack.pic = require('../assets/images/women/women12.jpg');
+            break;
+            case 12:
+            userStack.pic = require('../assets/images/women/women13.jpg');
+            break;
+            case 13:
+            userStack.pic = require('../assets/images/women/women14.jpg');
+            break;
+            case 14:
+            userStack.pic = require('../assets/images/women/women15.jpg');
+            break;
+          }
 
-      console.log('-----Aquí la pic-----\n\n\n\n');
-      console.log(userStack.pic);
-      console.log('\n\n\n\n----------');
-      usersStack.push(userStack);
+      }
+
+        if (userStack.email == this.state.user.email){
+          console.log("Entra a mi foto");
+          setFoto(userStack.pic);
+        }else{
+          var isAmigo = false;
+          if (amigos != undefined && amigos.length > 0 ){
+            console.log("\n\n\n-----Amigos en makestack-----");
+            console.log(amigos);
+            for (var j=0; j<amigos.length; j++){
+              var amigo = amigos[j];
+              console.log("\n\n\n-----Amigo en makestack-----");
+              console.log(amigo);
+              if (userStack.email == amigo.email){
+                console.log(isAmigo);
+                isAmigo = true;
+                console.log(isAmigo);
+              }
+            }
+          }
+          if (!isAmigo){
+          usersStackAux.push(userStack);
+        }
+      }
     }
-    this.setState({usersStack: usersStack})
+    if (usersStackAux.length == 0){
+      var userStack = {
+        pic: require('../assets/images/men/nousers.jpg'),
+        title: "",
+      //  age: user.edad,
+        caption: "",
+        email: ""
+      };
+      usersStackAux.push(userStack);
+    }
+
+
+
+    this.setState({usersStack: usersStackAux})
+    console.log('\n\n\n\n-----Termina MakeStack-----\n\n\n\n');
   }
 
 /*  componentDidMount(){
@@ -229,12 +308,37 @@ class HomeScreen extends React.Component {
 
 increaseCont(){
   this.setState({cont: this.state.cont + 1})
-  //if (this.state.cont == this.state.usersStack.length){
-  //  this.setState({cont: 0})
-  //}
+  if (this.state.cont == this.state.usersStack.length){
+    this.setState({cont: 0})
+  }
+}
+
+callGetFriends(){
+  console.log('-----Comienza el callGetFriends-----\n\n\n\n');
+  fetch(mainUrl +'FormGetUser?email='+this.state.user.email+'&password='+user.password, {
+         method: 'GET',
+         headers: {
+             'Accept': 'application/json',
+             'Content-type': 'application/json'
+           }
+         })
+         .then((response) => response.json())
+                 .then((json) => {
+                      this.setState({ userFriends: json.amigos });
+                      console.log('-----Se ha realizado el callGetFriends-----\n\n\n\n');
+                    })
+                    .catch((error) => console.error(error))
+                    .finally(() => {
+
+                      //setFriends(this.state.userFriends);
+                      this.makeStack(this.state.userFriends);
+                    });
+
+
 }
 
 makeFriend(newFriend){
+  var successfully = false;
   fetch(mainUrl +'FormGetAñadirAmigo?usuarioSesionActual_email='+this.state.user.email+'&usuarioAgregar_email='+newFriend, {
          method: 'GET',
          headers: {
@@ -242,34 +346,44 @@ makeFriend(newFriend){
              'Content-type': 'application/json'
            }
          })
-     .then((response) => response.json())
-         .then((json) => {
-           this.setState({ userFriends: json });
-           setFriends(json);
-           console.log('-----Aquí en el fetch-----\n\n\n\n');
-           console.log(this.state.userFriends);
-           console.log('\n\n\n\n----------');
-         })
-         .catch((error) => console.error(error))
-         .finally(() => {
-    //       setTimeout(() => {  console.log("Fetch"); }, 2000);
-           this.makeStack(this.state.userFriends);
-         });
+         .then((response) => response.json())
+                 .then((json) => {
+                   console.log('-----Se hace la peticion-----\n\n\n\n');
+                      if (json.email == "completed"){
+                        console.log('-----La respuesa es buena-----\n\n\n\n');
+                        successfully = true;
+                      }
+                    })
+                    .catch((error) => console.error(error))
+                    .finally(() => {
+               //       setTimeout(() => {  console.log("Fetch"); }, 2000);
+                      if (successfully){
+                        console.log('-----Se va a llamar a callGetFriends-----\n\n\n\n');
+                        this.callGetFriends();
+                      //  this.makeStack(this.state.userFriends);
+                      }
+
+                    });
 
 }
 
  _onSwipedLeft() {
    this.increaseCont();
-   console.log("No friends...")
+   console.log("No friends...");
  }
 
  _onSwipedRight() {
-  // this.makeFriend(this.state.usersStack[this.state.cont]);
-   this.increaseCont();
-   console.log("New friend!")
+   if (this.state.usersStack.length == 1 && this.state.usersStack[0].email == ""){
+     console.log("No more users");
+   }else{
+     this.makeFriend(this.state.usersStack[this.state.cont].email);
+     this.increaseCont();
+     console.log("New friend!");
+   }
  }
 
    componentDidMount(){
+  //   this.callGetFriends();
   //   fetch(mainUrl +'FormGetAllAmigos?usuarioSesionActual_email='+user.email, {
   fetch(mainUrl +'FormGetAllEventos', {
          method: 'GET',
@@ -281,22 +395,16 @@ makeFriend(newFriend){
      .then((response) => response.json())
          .then((json) => {
            this.setState({ allUsers: json });
-           console.log('-----Aquí en el fetch-----\n\n\n\n');
-           console.log(this.state.allUsers);
-           console.log('\n\n\n\n----------');
          })
          .catch((error) => console.error(error))
          .finally(() => {
     //       setTimeout(() => {  console.log("Fetch"); }, 2000);
     //       setFriends(amigos);
-           this.makeStack();
+           this.makeStack(user.amigos);
            this.setState({ isLoading: false });
          });
    //this.getImages();
-setTimeout(() => {  console.log("Timeout"); }, 5000);
-   console.log('-----Aquí allUsers-----\n\n\n\n');
-   console.log(allUsers);
-   console.log('\n\n\n\n----------');
+//   console.log('-----Aquí allUsers-----\n\n\n\n');
 
 
 
@@ -320,7 +428,7 @@ setTimeout(() => {  console.log("Timeout"); }, 5000);
     return (
       <SafeAreaView style={styles.container}>
         <Swiper
-          cards={shuffleArray(this.state.usersStack)}    //Swiper tiene variables para saber si desliza a izq o drcha
+          cards={this.state.usersStack}    //Swiper tiene variables para saber si desliza a izq o drcha
           renderCard={Card}
           infinite
           backgroundColor="white"
