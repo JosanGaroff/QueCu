@@ -20,6 +20,7 @@ public class Usuario implements Serializable {
 	private String nombre;
 	private String ciudad;
 	private String edad;
+	private String sexo;
 	
 	@ManyToMany
 	private Collection<Usuario> amigos;
@@ -141,5 +142,13 @@ public class Usuario implements Serializable {
 
 	public void setEdad(String edad) {  //o int
 		this.edad = edad;
+	}
+	
+	public String getSexo() {  //o int
+		return sexo;
+	}
+
+	public void setSexo(String sexo) {  //o int
+		this.sexo = sexo;
 	}
 }

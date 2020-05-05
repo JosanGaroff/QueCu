@@ -37,6 +37,7 @@ public class FormRegistroServlet extends HttpServlet {
 		String ciudad = req.getParameter("ciudad");
 		String nombre = req.getParameter("nombre");
 		String edad = req.getParameter("edad");
+		String sexo = req.getParameter("sexo");
 	//	int edadInt = Integer.parseInt(edad);
 		
 		Usuario user = new Usuario();
@@ -46,6 +47,7 @@ public class FormRegistroServlet extends HttpServlet {
 		user.setCiudad(ciudad);
 		user.setNombre(nombre);
 		user.setEdad(edad);
+		user.setSexo(sexo);
 		
 		UsuarioDAOImplementation.getInstancia().create(user);
 		
