@@ -64,65 +64,124 @@ class HomeScreen extends React.Component {
 
   makeStack(amigos){
     this.setState({cont: 0});
+    var numHombres=0;
+    var numMujeres=0;
     var usersStackAux = [];
     console.log('------Empieza MakeStack------');
     console.log(amigos);
     for (var i=0; i<allUsers.length; i++){
-      var user = allUsers[i];
+      var userAux = allUsers[i];
       var userStack = {
         pic: "",
-        title: user.nombre+', '+user.edad,
+        title: userAux.nombre+', '+userAux.edad,
   //      age: user.edad,
-        caption: user.descripcion,
-        email: user.email
+        caption: userAux.descripcion,
+        email: userAux.email
       };
-      switch((i+fotos.length)%fotos.length){
-        case 0:
-        userStack.pic = require('../assets/images/men/men1.jpg');
-        break;
-        case 1:
-          userStack.pic = require('../assets/images/men/men2.jpg');
+      if (userAux.sexo == 'HOMBRE'){
+        numHombres++;
+        console.log("Otro hombre más. Total: "+numHombres);
+        switch((numHombres+fotos.length)%fotos.length){
+          case 0:
+          userStack.pic = require('../assets/images/men/men1.jpg');
           break;
-        case 2:
-        userStack.pic = require('../assets/images/men/men3.jpg');
-        break;
-        case 3:
-        userStack.pic = require('../assets/images/men/men4.jpg');
-        break;
-        case 4:
-        userStack.pic = require('../assets/images/men/men5.jpg');
-        break;
-        case 5:
-        userStack.pic = require('../assets/images/men/men6.jpg');
-        break;
-        case 6:
-        userStack.pic = require('../assets/images/men/men7.jpg');
-        break;
-        case 7:
-        userStack.pic = require('../assets/images/men/men8.jpg');
-        break;
-        case 8:
-        userStack.pic = require('../assets/images/men/men9.jpg');
-        break;
-        case 9:
-        userStack.pic = require('../assets/images/men/men10.jpg');
-        break;
-        case 10:
-        userStack.pic = require('../assets/images/men/men11.jpg');
-        break;
-        case 11:
-        userStack.pic = require('../assets/images/men/men12.jpg');
-        break;
-        case 12:
-        userStack.pic = require('../assets/images/men/men13.jpg');
-        break;
-        case 13:
-        userStack.pic = require('../assets/images/men/men14.jpg');
-        break;
-        case 14:
-        userStack.pic = require('../assets/images/men/men15.jpg');
-        break;
+          case 1:
+            userStack.pic = require('../assets/images/men/men2.jpg');
+            break;
+          case 2:
+          userStack.pic = require('../assets/images/men/men3.jpg');
+          break;
+          case 3:
+          userStack.pic = require('../assets/images/men/men4.jpg');
+          break;
+          case 4:
+          userStack.pic = require('../assets/images/men/men5.jpg');
+          break;
+          case 5:
+          userStack.pic = require('../assets/images/men/men6.jpg');
+          break;
+          case 6:
+          userStack.pic = require('../assets/images/men/men7.jpg');
+          break;
+          case 7:
+          userStack.pic = require('../assets/images/men/men8.jpg');
+          break;
+          case 8:
+          userStack.pic = require('../assets/images/men/men9.jpg');
+          break;
+          case 9:
+          userStack.pic = require('../assets/images/men/men10.jpg');
+          break;
+          case 10:
+          userStack.pic = require('../assets/images/men/men11.jpg');
+          break;
+          case 11:
+          userStack.pic = require('../assets/images/men/men12.jpg');
+          break;
+          case 12:
+          userStack.pic = require('../assets/images/men/men13.jpg');
+          break;
+          case 13:
+          userStack.pic = require('../assets/images/men/men14.jpg');
+          break;
+          case 14:
+          userStack.pic = require('../assets/images/men/men15.jpg');
+          break;
+        }
       }
+      if (userAux.sexo == 'MUJER'){
+          numMujeres++;
+          console.log("Otra mujer más. Total: "+numMujeres);
+          switch((numMujeres+fotos.length)%fotos.length){
+            case 0:
+            userStack.pic = require('../assets/images/women/women1.jpg');
+            break;
+            case 1:
+              userStack.pic = require('../assets/images/women/women2.jpg');
+              break;
+            case 2:
+            userStack.pic = require('../assets/images/women/women3.jpg');
+            break;
+            case 3:
+            userStack.pic = require('../assets/images/women/women4.jpg');
+            break;
+            case 4:
+            userStack.pic = require('../assets/images/women/women5.jpg');
+            break;
+            case 5:
+            userStack.pic = require('../assets/images/women/women6.jpg');
+            break;
+            case 6:
+            userStack.pic = require('../assets/images/women/women7.jpg');
+            break;
+            case 7:
+            userStack.pic = require('../assets/images/women/women8.jpg');
+            break;
+            case 8:
+            userStack.pic = require('../assets/images/women/women9.jpg');
+            break;
+            case 9:
+            userStack.pic = require('../assets/images/women/women10.jpg');
+            break;
+            case 10:
+            userStack.pic = require('../assets/images/women/women11.jpg');
+            break;
+            case 11:
+            userStack.pic = require('../assets/images/women/women12.jpg');
+            break;
+            case 12:
+            userStack.pic = require('../assets/images/women/women13.jpg');
+            break;
+            case 13:
+            userStack.pic = require('../assets/images/women/women14.jpg');
+            break;
+            case 14:
+            userStack.pic = require('../assets/images/women/women15.jpg');
+            break;
+          }
+
+      }
+
         if (userStack.email == this.state.user.email){
           console.log("Entra a mi foto");
           setFoto(userStack.pic);

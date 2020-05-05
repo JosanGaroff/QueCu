@@ -19,6 +19,12 @@ export const nameValidator = name => {
   return '';
 };
 
+export const sexValidator = sex => {
+  if (sex == 'HOMBRE' || sex == 'MUJER') return "";   //'Name cannot be empty.';
+
+  return 'Seleccione una de las dos opciones.';
+};
+
 export const ageValidator = age => {
   if (!age || age.length <= 0) return "La edad no puede estar vacía";
   esNumero=false;
