@@ -1,6 +1,6 @@
 import React  from 'react'
 import { AppLoading } from 'expo'
-import { SafeAreaView, StyleSheet, Image} from 'react-native'
+import { SafeAreaView, StyleSheet, Image, Text, View} from 'react-native'
 import Swiper from 'react-native-deck-swiper'
 import { Card } from '../components/Card'
 import { HomeScreenPics } from '../constants/Pics'
@@ -10,7 +10,7 @@ import shuffleArray from '../utils/shuffleArray'
 import randomNo from '../utils/randomNo'
 
 
-import {mainUrl, user, userFriends, setFriends, allUsers, setFoto, fotoUser} from '../components/User';
+import {mainUrl, user, userFriends, setFriends, allUsers, setFoto, fotoUser, setMyFriendStack} from '../components/User';
 
 var loading = {
   pic: require('../assets/loading.gif'),
@@ -46,7 +46,7 @@ class HomeScreen extends React.Component {
     cont:0,
     usersStack:[],
     allUsers: [],
-    userFriends: userFriends,
+    userFriends: user.amigos,
     isLoading: true,
     isLoadingComplete: false,
 
@@ -67,6 +67,7 @@ class HomeScreen extends React.Component {
     var numHombres=0;
     var numMujeres=0;
     var usersStackAux = [];
+    var amigosStackAux = [];
     console.log('------Empieza MakeStack------');
     console.log(amigos);
     for (var i=0; i<allUsers.length; i++){
@@ -86,8 +87,8 @@ class HomeScreen extends React.Component {
           userStack.pic = require('../assets/images/men/men1.jpg');
           break;
           case 1:
-            userStack.pic = require('../assets/images/men/men2.jpg');
-            break;
+          userStack.pic = require('../assets/images/men/men2.jpg');
+          break;
           case 2:
           userStack.pic = require('../assets/images/men/men3.jpg');
           break;
@@ -188,16 +189,12 @@ class HomeScreen extends React.Component {
         }else{
           var isAmigo = false;
           if (amigos != undefined && amigos.length > 0 ){
-            console.log("\n\n\n-----Amigos en makestack-----");
-            console.log(amigos);
             for (var j=0; j<amigos.length; j++){
               var amigo = amigos[j];
-              console.log("\n\n\n-----Amigo en makestack-----");
-              console.log(amigo);
               if (userStack.email == amigo.email){
                 console.log(isAmigo);
                 isAmigo = true;
-                console.log(isAmigo);
+                amigosStackAux.push(userStack);
               }
             }
           }
@@ -218,93 +215,10 @@ class HomeScreen extends React.Component {
     }
 
 
-
+    setMyFriendStack(amigosStackAux);
     this.setState({usersStack: usersStackAux})
     console.log('\n\n\n\n-----Termina MakeStack-----\n\n\n\n');
   }
-
-/*  componentDidMount(){
-    console.log('-----Aquí el guardado-----\n\n\n\n');
-    console.log(allUsers);
-
-    var successfully = false
-
-    var data_file = mainUrl+'FormGetAllUsers';
-    var http_request = new XMLHttpRequest();
-    try{
-       // Opera 8.0+, Firefox, Chrome, Safari
-       http_request = new XMLHttpRequest();
-    }catch (e) {
-       // Internet Explorer Browsers
-       try{
-          http_request = new ActiveXObject("Msxml2.XMLHTTP");
-
-       }catch (e) {
-
-          try{
-             http_request = new ActiveXObject("Microsoft.XMLHTTP");
-          }catch (e) {
-             // Something went wrong
-             alert("Your browser broke!");
-             return false;
-          }
-
-       }
-    }
-  /*cambiaData(){
-        this.setState({allUsers: usuarios});
-        console.log('-----Aquí usuarios dentro de cambia-----\n\n\n\n');
-        console.log(this.state.allUsers);
-        console.log('\n\n\n\n----------');
-        console.log('-----Aquí allUsers-----\n\n\n\n');
-        console.log(this.state.allUsers);
-        console.log('\n\n\n\n----------');
-    }
-
-    http_request.onreadystatechange = function() {
-
-       if (http_request.readyState == 4  ) {
-          // Javascript function JSON.parse to parse JSON data
-          successfully = true;
-          var jsonObj = JSON.parse(http_request.responseText);
-          console.log('-----Aquí el JSON-----\n\n\n\n');
-          console.log(jsonObj);
-          console.log('\n\n\n\n----------');
-          usuarios=jsonObj;
-          console.log('-----Aquí el JSON en la variable usuarios-----\n\n\n\n');
-          console.log(jsonObj);
-          console.log('\n\n\n\n----------');
-          this.successfully = true;
-    //      this.cambiaData();
-    //      this.setState({ isLoading: false });
-
-
-
-          // jsonObj variable now contains the data structure and can
-          // be accessed as jsonObj.name and jsonObj.country.
-         // document.getElementById("Name").innerHTML = jsonObj.name;
-         // document.getElementById("Country").innerHTML = jsonObj.country;
-       }
-
-    }
-
-    http_request.open("GET", data_file, true);
-    http_request.send();
-
-/*    this.getUser();
-    this.getUser();
-    this.getUser();
-    this.getUser();
-          console.log(this.state.allUsers);
-
-
-
-          console.log('-----Aquí allUsers-----\n\n\n\n');
-          console.log(this.state.allUsers);
-          console.log('\n\n\n\n----------');
-
-
-  }*/
 
 increaseCont(){
   this.setState({cont: this.state.cont + 1})
@@ -315,7 +229,8 @@ increaseCont(){
 
 callGetFriends(){
   console.log('-----Comienza el callGetFriends-----\n\n\n\n');
-  fetch(mainUrl +'FormGetUser?email='+this.state.user.email+'&password='+user.password, {
+//  fetch(mainUrl +'FormGetUser?email='+this.state.user.email+'&password='+user.password, {
+  fetch(mainUrl +'FormGetAllAmigos?usuarioSesionActual_email='+this.state.user.email, {
          method: 'GET',
          headers: {
              'Accept': 'application/json',
@@ -324,7 +239,8 @@ callGetFriends(){
          })
          .then((response) => response.json())
                  .then((json) => {
-                      this.setState({ userFriends: json.amigos });
+            //          this.setState({ userFriends: json.amigos });
+                      this.setState({ userFriends: json });
                       console.log('-----Se ha realizado el callGetFriends-----\n\n\n\n');
                     })
                     .catch((error) => console.error(error))
@@ -352,6 +268,8 @@ makeFriend(newFriend){
                       if (json.email == "completed"){
                         console.log('-----La respuesa es buena-----\n\n\n\n');
                         successfully = true;
+                    //    this.setState({userFriends: this.userFriends.push()})
+                    //    this.makeStack(this.state.user.Friends);
                       }
                     })
                     .catch((error) => console.error(error))
@@ -377,6 +295,7 @@ makeFriend(newFriend){
      console.log("No more users");
    }else{
      this.makeFriend(this.state.usersStack[this.state.cont].email);
+     this.callGetFriends();
      this.increaseCont();
      console.log("New friend!");
    }
@@ -418,27 +337,23 @@ makeFriend(newFriend){
 
 
   render() {
-    if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen && this.state.isLogged) {
-      return (
-        <SafeAreaView>
-        <Image src='../assets/loading.gif' />
-        </SafeAreaView>
-      )
-    } else
     return (
-      <SafeAreaView style={styles.container}>
+      <View style={styles.container}>
         <Swiper
           cards={this.state.usersStack}    //Swiper tiene variables para saber si desliza a izq o drcha
           renderCard={Card}
+          disableBottomSwipe
+          disableTopSwipe
           infinite
-          backgroundColor="white"
+          cardVerticalMargin={0}
           cardHorizontalMargin={0}
-          stackSize={2}
+          backgroundColor="white"
+          stackSize={1}
           onSwipedLeft={() => this._onSwipedLeft()}
           onSwipedRight={() => this._onSwipedRight()}
 
         />
-      </SafeAreaView>
+      </View>
     )
   }
 
@@ -473,9 +388,7 @@ makeFriend(newFriend){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'transparent',
-    borderRadius: 20,
-
+    alignItems: 'center',
   },
 })
 

@@ -1,1 +1,9 @@
-{}
+{
+  "expoServerPort": 19000,
+  "expoServerNgrokUrl": "https://5q-994.anonymous.quecu.exp.direct",
+  "packagerNgrokUrl": "https://packager.5q-994.anonymous.quecu.exp.direct",
+  "ngrokPid": 56692,
+  "devToolsPort": 19002,
+  "packagerPort": 19003,
+  "packagerPid": 56661
+}

@@ -12,9 +12,57 @@ import { emailValidator, passwordValidator } from '../../core/utils';
 
 import {mainUrl, user, setUser, allUsers, setAllUsers} from '../../components/User';
 
+import {setEventos} from '../../components/Eventos';
+
 var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
 
 const LoginScreen = ({ navigation }) => {
+
+  function getEventos() {
+    var data_file = mainUrl+'FormGetAllEventos';
+    var http_request = new XMLHttpRequest();
+    try{
+       // Opera 8.0+, Firefox, Chrome, Safari
+       http_request = new XMLHttpRequest();
+    }catch (e) {
+       // Internet Explorer Browsers
+       try{
+          http_request = new ActiveXObject("Msxml2.XMLHTTP");
+
+       }catch (e) {
+
+          try{
+             http_request = new ActiveXObject("Microsoft.XMLHTTP");
+          }catch (e) {
+             // Something went wrong
+             alert("Your browser broke!");
+             return false;
+          }
+
+       }
+    }
+
+    http_request.onreadystatechange = function() {
+
+       if (http_request.readyState == 4 && http_request.status == 200 ) {
+          // Javascript function JSON.parse to parse JSON data
+          var jsonObj = JSON.parse(http_request.responseText);
+          setEventos(jsonObj);
+          console.log('\n\n\n\n-----Los eventos-----\n\n\n\n');
+          console.log(jsonObj);
+          console.log('\n\n\n\n-----Los usuarios-----\n\n\n\n');
+
+          // jsonObj variable now contains the data structure and can
+          // be accessed as jsonObj.name and jsonObj.country.
+         // document.getElementById("Name").innerHTML = jsonObj.name;
+         // document.getElementById("Country").innerHTML = jsonObj.country;
+       }
+
+    }
+
+    http_request.open("GET", data_file, true);
+    http_request.send();
+  }
 
   function getUsers() {
     var data_file = mainUrl+'FormGetAllUsers';
@@ -148,8 +196,10 @@ const LoginScreen = ({ navigation }) => {
       setPassword({ ...password, error: passwordError });
       return;
     }
-    getUsers();
+
     loadUser(email.value, password.value);
+    getUsers();
+    getEventos();
 /*
     if (user.email != "none"){
       navigation.navigate('Dashboard');
@@ -164,7 +214,7 @@ const LoginScreen = ({ navigation }) => {
 
       <Logo />
 
-      <Header>Nos alegramos de verte de vuelta.</Header>
+      <Header>Nos alegramos de verte.</Header>
 
       <TextInput
         label="Email"
@@ -189,13 +239,7 @@ const LoginScreen = ({ navigation }) => {
         secureTextEntry
       />
 
-      <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ForgotPasswordScreen')}
-        >
-          <Text style={styles.label}>¿Olvidaste tu contraseña?</Text>
-        </TouchableOpacity>
-      </View>
+
 
       <Button mode="contained" onPress={_onLoginPressed}>
         Inicia sesión
@@ -232,3 +276,11 @@ const styles = StyleSheet.create({
 
 
 export default memo(LoginScreen);
+
+/*      <View style={styles.forgotPassword}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ForgotPasswordScreen')}
+        >
+          <Text style={styles.label}>¿Olvidaste tu contraseña?</Text>
+        </TouchableOpacity>
+      </View>*/

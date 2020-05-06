@@ -22,15 +22,14 @@ export const Card = ({ pic, title, caption }) => (
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderRadius: 20,
     alignItems: 'center',
     overflow: 'hidden'
   },
   imageContainer: {
-    borderRadius: 20,
+    //borderRadius: 20,
     width: Layout.window.width - 0,
     height: Layout.window.height - BOTTOM_BAR_HEIGHT * 4 ,
-    borderRadius: 20,
+//    borderRadius: 20,
     overflow: 'hidden', // this does magic
   },
   title: {

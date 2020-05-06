@@ -176,8 +176,9 @@ const RegisterScreen = ({ navigation }) => {
       return;
     }
 
-    getUsers();
+
     createUser(email.value, password.value, name.value, age.value, description.value, city.value, sex.value);
+    getUsers();
 
   };
 

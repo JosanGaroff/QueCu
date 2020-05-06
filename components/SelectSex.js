@@ -6,12 +6,13 @@ import { theme } from '../core/theme';
 const SelectSex = ({ errorText, ...props }) => (
   <View style={styles.container}>
     <Picker
-        style={styles.input}
+        style={styles.picker}
         selectionColor={theme.colors.primary}
         underlineColor="transparent"
         mode="outlined"
         {...props}
       >
+        <Picker.Item label="Elija su sexo" value="choose" />
         <Picker.Item label="Hombre" value="HOMBRE" />
         <Picker.Item label="Mujer" value="MUJER" />
       </Picker>
@@ -21,8 +22,14 @@ const SelectSex = ({ errorText, ...props }) => (
 
 const styles = StyleSheet.create({
   container: {
+    display: "flex",
+    justifyContent: 'flex-end',
     width: '100%',
-    marginVertical: 12,
+    height: '11%',
+    overflow: 'hidden'
+  },
+  picker: {
+    backgroundColor: theme.colors.surface,
   },
   input: {
     backgroundColor: theme.colors.surface,

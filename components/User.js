@@ -1,6 +1,6 @@
-var localhost = '192.168.1.43';
+var localhost = '192.168.0.11';
 
-var mainUrl = 'http://'+localhost+':8080/ISST-20-TFG/';
+var mainUrl = 'http://'+localhost+':8080/Quecu/';
 
 var user = {ciudad: "", descripcion:"" , edad: "" , email:"", nombre:"none", password:"", amigos:[]};
 
@@ -10,8 +10,14 @@ var userFoto;
 
 var allUsers = [];
 
+var myFriendStack = [];
+
 function setFoto(foto){
   userFoto = foto;
+}
+
+function getFoto(){
+  return userFoto;
 }
 
 function loadUser(email, password) {
@@ -117,12 +123,29 @@ function setUser(usuario) {
   user = usuario;
 }
 
+function getUser() {
+  return user;
+}
+
 function setFriends(amigos){
   userFriends = amigos;
+}
+
+function getFriends(){
+  return userFriends;
 }
 
 function setAllUsers(usuarios) {
   allUsers = usuarios;
 }
 
-export {localhost, mainUrl, user, loadUser, createUser, setUser, allUsers, setAllUsers, setFoto};
+function setMyFriendStack(newStack){
+  myFriendStack = newStack;
+}
+
+function getMyFriendStack(){
+  return myFriendStack;
+}
+
+
+export {localhost, mainUrl, user, loadUser, createUser, setUser, getUser, allUsers, setAllUsers, setFoto, getFoto, myFriendStack, setMyFriendStack, getMyFriendStack, userFriends, setFriends, getFriends};

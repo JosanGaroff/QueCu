@@ -16,8 +16,16 @@ const HomeStack = createStackNavigator(
     Home: HomeScreen,
   },
   {
-    headerMode: 'none',
-  },
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#FF9C00',
+      },
+      headerTintColor: '#fff',
+      title: 'Quecu',
+
+    },
+  }
+
 )
 
 HomeStack.navigationOptions = {
@@ -36,8 +44,15 @@ const TopPicksStack = createStackNavigator(
     TopPicks: TopPicksScreen,
   },
   {
-    headerMode: 'none',
-  },
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#FF9C00',
+      },
+      headerTintColor: '#fff',
+      title: 'Quecu',
+
+    },
+  }
 )
 
 TopPicksStack.navigationOptions = {
@@ -70,8 +85,15 @@ const ProfileStack = createStackNavigator(
     Profile: ProfileScreen,
   },
   {
-    headerMode: 'none',
-  },
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: '#FF9C00',
+      },
+      headerTintColor: '#fff',
+      title: 'Quecu',
+
+    },
+  }
 )
 
 ProfileStack.navigationOptions = {

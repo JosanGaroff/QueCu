@@ -14,23 +14,13 @@ export default function BottomTabNavigator({ navigation, route }) {
   navigation.setOptions({ headerTitle: getHeaderTitle(route) });
 
   return (
-    <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
-      <BottomTab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          title: 'Get Started',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-code-working" />,
-        }}
-      />
-      <BottomTab.Screen
-        name="Links"
-        component={LinksScreen}
-        options={{
-          title: 'Resources',
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
-        }}
-      />
+    <BottomTab.Navigator
+    initialRouteName={INITIAL_ROUTE_NAME}
+    tabBarOptions={{
+        activeTintColor: '#FF9C00',
+        activeBackgroundColor: '#FF9C00',
+        inactiveBackgroundColor: '#FF9C00',
+      }}
     </BottomTab.Navigator>
   );
 }

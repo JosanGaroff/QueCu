@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import { Image, SafeAreaView, StyleSheet, View, Alert} from 'react-native'
-import { Divider, Icon, Text } from 'react-native-elements'
+import { Image, SafeAreaView, StyleSheet, View, Alert, ScrollView,} from 'react-native'
+import { Divider, Icon, Text, Tile } from 'react-native-elements'
 import Layout from '../constants/Layout'
 import { HomeScreenPics, myProfile } from '../constants/Pics'
 import { randomNo } from '../utils/randomNo'
@@ -17,7 +17,7 @@ import {
   descriptionValidator,
 } from '../core/utils';
 
-import {mainUrl, user, setUser, userFoto, allUsers, setFoto} from '../components/User';
+import {mainUrl, user, setUser, userFoto, allUsers, setFoto, getFoto, getMyFriendStack, myFriendStack} from '../components/User';
 
 const { pic, title } = myProfile[0];
 
@@ -66,7 +66,9 @@ class ProfileScreen extends React.Component {
     age: {value:user.edad.toString(), error:""},
     city: {value:user.ciudad, error:""},
     description: {value:user.descripcion, error:""},
+    myFriendStackState: myFriendStack,
     isEditing: false,
+    verAmigos: false,
     image: userFoto
 
   }
@@ -80,6 +82,7 @@ class ProfileScreen extends React.Component {
       };
     }*/
  componentDidMount(){
+
 
 this.myFoto();
 
@@ -149,7 +152,15 @@ this.myFoto();
         this.setState({ isEditing: false});
 
     }
-  //  this.forceUpdate();
+  }
+
+  toogleVerAmigos() {
+    if (this.state.verAmigos == false ){
+      this.setState({myFriendStackState: getMyFriendStack()})
+       this.setState({ verAmigos: true});
+    }else{
+        this.setState({ verAmigos: false});
+    }
   }
 
 uploadNewProfile(func){
@@ -178,7 +189,7 @@ uploadNewProfile(func){
 
   http_request.onreadystatechange = function(func) {
 console.log("4");
-     if (http_request.readyState == 4 ) {
+     if (http_request.readyState == 4 && http_request.status == 200) {
         // Javascript function JSON.parse to parse JSON data
         var jsonObj = JSON.parse(http_request.responseText);
 
@@ -203,15 +214,7 @@ console.log("4");
         }
         else{
           console.log("5B");
-          Alert.alert(
-            "Error en el registro",
-            "El email ya existe",
-            [
-            {
-              text: "OK"
-            }
-          ],{cancelable: false}
-          );
+
         //  navigation.navigate('WrongLoginScreen');
         }
 
@@ -221,6 +224,7 @@ console.log("4");
        // document.getElementById("Country").innerHTML = jsonObj.country;
      //}else{
        //navigation.navigate('AlreadyRegisterScreen');
+     }else{
      }
      console.log("6");
   }
@@ -377,9 +381,10 @@ break;
   render() {
         imprime();
 
-    if (!this.state.isEditing){
+    if (!this.state.isEditing && !this.state.verAmigos){
       return (
         <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={{flexGrow: 1, justifyContent : 'center'}}>
           <View style={styles.imageContainer}>
             <Image source={this.state.image} style={styles.image} />
           </View>
@@ -400,12 +405,47 @@ break;
             <Social name="instagram" />
             <Social name="facebook-square" />
           </View>
-          <Button onPress={() => this.toogleEditando()}>
-          <Text style={styles.link} >Editar Perfil</Text>
-          </Button>
+          <Divider style={styles.divider} />
+          <Text style={styles.desc} onPress={() => this.toogleVerAmigos()}>Ver lista de amigos</Text>
+          <Divider style={styles.divider} />
+            <Button mode="contained" style={styles.button} onPress={() => this.toogleEditando()}>
+              Editar Perfil
+            </Button>
+            </ScrollView>
         </SafeAreaView>
       )
-    }else{
+    }
+      else if (this.state.verAmigos) {
+        return(
+          <SafeAreaView>
+            <ScrollView>
+              <Text h2 h2Style={styles.h2Style}>
+
+                Mis Amigos
+
+              </Text>
+              <View style={styles.grid}>
+                {this.state.myFriendStackState.map(({ pic, title, caption, email }, i) => (
+                  <Tile
+                    imageSrc={pic}
+                    activeOpacity={0.9}
+                    title={title}
+                    titleStyle={styles.title}
+                    caption={caption+'\nEmail: '+email}
+                    captionStyle={styles.caption}
+                    featured
+                    key={title}
+                    onPress={() => console.log('Evento tocado')}
+                  />
+                ))}
+              </View>
+              <Button onPress={() => this.toogleVerAmigos()}>
+                <Text style={styles.link} >Volver</Text>
+              </Button>
+            </ScrollView>
+          </SafeAreaView>
+        )
+      }else{
 
       return (
         <SafeAreaView style={styles.container}>
@@ -459,6 +499,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
+    marginLeft: 20,
   },
   imageContainer: {
     margin: 20,
@@ -485,6 +526,10 @@ const styles = StyleSheet.create({
     width: Layout.window.width - 60,
     margin: 20,
   },
+  button: {
+    width: Layout.window.width - 60,
+    margin: 20,
+  },
   socialLinks: {
     flex: 1,
     alignItems: 'flex-start',
@@ -495,6 +540,23 @@ const styles = StyleSheet.create({
   iconContainer: {
     paddingHorizontal: 8,
     paddingVertical: 15,
+  },
+  h2Style: {
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#000000',
+  },
+  title: {
+    padding: 10,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: 'rgba(0,0,0,0.2);'
+  },
+  caption: {
+    padding: 10,
+    borderRadius: 5,
+    overflow: "hidden",
+    backgroundColor: 'rgba(0,0,0,0.2);'
   },
 })
 

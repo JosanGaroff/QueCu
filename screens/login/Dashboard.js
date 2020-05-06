@@ -125,17 +125,14 @@ componentDidMount = () =>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FF9C00',
   },
 })
 
 
 
 const Dashboard = ({ navigation }) => (
-  <View style={styles.container}>
-    <StatusBar />
     <AppNavigator />
-  </View>
 );
 
 /*const Dashboard = ({ navigation }) => (
