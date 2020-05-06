@@ -21,7 +21,8 @@ class TopPicksScreen extends React.Component {
       eventosStack: [],
       titulo: "",
       descripcion: "",
-      isEditing: false
+      isEditing: false,
+      touchedEvent: false
 
   }
 
@@ -114,7 +115,19 @@ class TopPicksScreen extends React.Component {
     this.setState({ isEditing: false});
 
   }
-//  this.forceUpdate();
+}
+
+toogleTouched() {
+  console.log('Evento tocado');
+  if (this.state.touchedEvent == false ){
+
+     this.setState({ touchedEvent: true});
+
+  }else{
+    
+    this.setState({ touchedEvent: false});
+
+  }
 }
 
 
@@ -141,8 +154,9 @@ uploadNewEvento(){
         }
      }
   }
-
+/*
   http_request.onreadystatechange = function(func) {
+
 console.log("4");
      if (http_request.readyState == 4 && http_request.status == 200) {
         // Javascript function JSON.parse to parse JSON data
@@ -188,8 +202,10 @@ console.log("4");
        //navigation.navigate('AlreadyRegisterScreen');
         console.log("6");
      }
+
      console.log("7");
   }
+  */
   http_request.open("GET", data_file, true);
   http_request.send();
 }
@@ -201,7 +217,7 @@ componentDidMount(){
 
   render() {
 
-  if (!this.state.isEditing){
+  if (!this.state.isEditing && !this.state.touchedEvent){
 
     return (
       <SafeAreaView>
@@ -212,7 +228,7 @@ componentDidMount(){
           <Text h4 h4Style={styles.h4Style}>
             Echa un vistazo a los eventos que tenemos para ti
           </Text>
-           <Button onPress={() => this.toogleEditando()}>
+           <Button onPress={() => this.toogleTouched()}>
             <Text style={styles.link} >Crea tu evento</Text>
           </Button>
           <View style={styles.grid}>
@@ -226,14 +242,25 @@ componentDidMount(){
                 captionStyle={styles.caption}
                 featured
                 key={title}
-                onPress={() => console.log('Evento tocado')}
+                onPress={() => this.toogleTouched() }
               />
             ))}
           </View>
         </ScrollView>
       </SafeAreaView>
     )
-  }else{
+  }else if(this.state.touchedEvent){
+    return(
+        <SafeAreaView>
+          <Button onPress={() => this.toogleTouched()}>
+            <Text style={styles.link} >Evento tocado</Text>
+          </Button>
+        </SafeAreaView>
+      )
+
+
+
+  } else{
     return(
 
         <SafeAreaView style={styles.container}>
