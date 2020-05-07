@@ -3,6 +3,6 @@
   "lanType": "ip",
   "dev": true,
   "minify": false,
-  "urlRandomness": "pg-hwb",
+  "urlRandomness": "kv-gxn",
   "https": false
 }

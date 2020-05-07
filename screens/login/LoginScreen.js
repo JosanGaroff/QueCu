@@ -12,7 +12,7 @@ import { emailValidator, passwordValidator } from '../../core/utils';
 
 import {mainUrl, user, setUser, allUsers, setAllUsers} from '../../components/User';
 
-import {setEventos} from '../../components/Eventos';
+import {setAllEventos, getAllEventos, eventos} from '../../components/Eventos';
 
 var usuario = {ciudad:"", descripcion:"", edad: "", email:"", nombre:"", password:""};
 
@@ -47,10 +47,10 @@ const LoginScreen = ({ navigation }) => {
        if (http_request.readyState == 4 && http_request.status == 200 ) {
           // Javascript function JSON.parse to parse JSON data
           var jsonObj = JSON.parse(http_request.responseText);
-          setEventos(jsonObj);
+          setAllEventos(jsonObj);
           console.log('\n\n\n\n-----Los eventos-----\n\n\n\n');
           console.log(jsonObj);
-          console.log('\n\n\n\n-----Los usuarios-----\n\n\n\n');
+          console.log('\n\n\n\n-----Los eventos fin-----\n\n\n\n');
 
           // jsonObj variable now contains the data structure and can
           // be accessed as jsonObj.name and jsonObj.country.
@@ -62,6 +62,7 @@ const LoginScreen = ({ navigation }) => {
 
     http_request.open("GET", data_file, true);
     http_request.send();
+    console.log("Eventos------------->" + eventos );
   }
 
   function getUsers() {

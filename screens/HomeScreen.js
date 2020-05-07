@@ -314,6 +314,7 @@ makeFriend(newFriend){
      .then((response) => response.json())
          .then((json) => {
            this.setState({ allUsers: json });
+           console.log("PRIMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM -----> " + this.state.allUsers);
          })
          .catch((error) => console.error(error))
          .finally(() => {

@@ -1,11 +1,11 @@
 export var eventos = [];
 
-export function getEventos(){
+export function getAllEventos(){
   return eventos
 }
 
-export function setEventos(eventos){
-  this.eventos = eventos;
+export function setAllEventos(eventos){
+  eventos = eventos;
 }
 
 export var eventosStack = [];

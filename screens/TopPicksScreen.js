@@ -11,10 +11,10 @@ import { theme } from '../core/theme';
 
 import {mainUrl, user, setUser} from '../components/User';
 
-import {setEventos} from '../components/Eventos';
+import {setAllEventos} from '../components/Eventos';
 
 
-import {eventos, getEventos, eventosStack, getEventosStack, setEventosStack} from '../components/Eventos';
+import {eventos, getAllEventos, eventosStack, getEventosStack, setEventosStack} from '../components/Eventos';
 
 var eventos2 = { descripcion: "",participantes: [], titulo: ""  };
 
@@ -29,13 +29,13 @@ class TopPicksScreen extends React.Component {
 
       isEditing: false,
       touchedEvent: false,
-       nEvento: 0
+      nEvento: 0
   }
 
   makeStack(){
     var eventosStackAux = [];
     console.log('------Empieza MakeStack de Eventos------');
-    if(false){ //this.state.eventos != undefined){
+    if(this.state.eventos != undefined){ //this.state.eventos != undefined){
     for (var i=0; i<this.state.eventos.length; i++){
       var eventoAux = this.state.eventos[i];
       var eventoStack = {
@@ -43,9 +43,9 @@ class TopPicksScreen extends React.Component {
         title: eventoAux.titulo,
   //      age: user.edad,
         caption: eventoAux.descripcion,
-        email: eventoAux.user.email
+        //email: eventoAux.user.email
       };
-        switch((i+fotos.length)%fotos.length){
+        switch((i+this.state.eventos.length)%this.state.eventos.length){
           case 0:
           eventoStack.pic = require('../assets/images/events/cine.jpg');
           break;
@@ -101,7 +101,7 @@ class TopPicksScreen extends React.Component {
         title: "No hay eventos",
       //  age: user.edad,
         caption: "",
-        email: ""
+        //email: ""
       };
       eventosStackAux.push(eventoStack);
     }
@@ -170,6 +170,34 @@ http_request.open("GET", data_file, true);
 
 
  getEventos() {
+
+    fetch(mainUrl +'FormGetAllEventos', {
+         method: 'GET',
+         headers: {
+             'Accept': 'application/json',
+             'Content-type': 'application/json'
+           }
+         })
+     .then((response) => response.json())
+         .then((json) => {
+          console.log(json);
+           this.setState({ eventos: json });
+         })
+         .catch((error) => console.error(error))
+         .finally(() => {
+    //       setTimeout(() => {  console.log("Fetch"); }, 2000);
+           console.log( "AQUI------------------>" + this.state.eventos);
+
+           this.makeStack();
+           //this.setState({ isLoading: false });
+         });
+
+
+
+
+
+  ////////////////////////////***************************************************//////////////////////////
+  /*
     var data_file = mainUrl+'FormGetAllEventos';
     var http_request = new XMLHttpRequest();
     try{
@@ -198,7 +226,7 @@ http_request.open("GET", data_file, true);
        if (http_request.readyState == 4 && http_request.status == 200 ) {
           // Javascript function JSON.parse to parse JSON data
           var jsonObj = JSON.parse(http_request.responseText);
-          setEventos(jsonObj);
+          setAllEventos(jsonObj);
           eventos2 = jsonObj;
           
           console.log('\n\n\n\n-----Inicio eventos-----\n\n\n\n');
@@ -217,7 +245,7 @@ http_request.open("GET", data_file, true);
     http_request.open("GET", data_file, true);
     http_request.send();
 
-
+*/
   }
 
 
@@ -259,7 +287,7 @@ this.getEventos();
  //this.setState({eventos: eventos2});
 
   console.log("state eventos: " + this.state.eventos);
-  this.makeStack();
+  //this.makeStack();
  
 }
 
