@@ -1,8 +1,9 @@
 import React from 'react'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { Text, Tile } from 'react-native-elements'
+import { Image,ScrollView, StyleSheet, View } from 'react-native'
+import { Divider, Text, Tile } from 'react-native-elements'
 import { SafeAreaView } from 'react-navigation'
 import { ExploraPics } from '../constants/Pics'
+import Layout from '../constants/Layout'
 
 import Button from '../components/Button';
 import TextInput from '../components/TextInput';
@@ -10,26 +11,31 @@ import { theme } from '../core/theme';
 
 import {mainUrl, user, setUser} from '../components/User';
 
-import {eventos, getEventos, setEventos, eventosStack, getEventosStack, setEventosStack} from '../components/User';
+import {setEventos} from '../components/Eventos';
 
+
+import {eventos, getEventos, eventosStack, getEventosStack, setEventosStack} from '../components/Eventos';
+
+var eventos2 = { descripcion: "",participantes: [], titulo: ""  };
 
 class TopPicksScreen extends React.Component {
-
   state ={
       user: user,
       eventos : eventos,
+      eventos2: eventos2,
       eventosStack: [],
       titulo: "",
       descripcion: "",
-      isEditing: false,
-      touchedEvent: false
 
+      isEditing: false,
+      touchedEvent: false,
+       nEvento: 0
   }
 
   makeStack(){
     var eventosStackAux = [];
     console.log('------Empieza MakeStack de Eventos------');
-    if(this.state.eventos != undefined){
+    if(false){ //this.state.eventos != undefined){
     for (var i=0; i<this.state.eventos.length; i++){
       var eventoAux = this.state.eventos[i];
       var eventoStack = {
@@ -55,13 +61,13 @@ class TopPicksScreen extends React.Component {
           case 4:
           eventoStack.pic = require('../assets/images/events/museo.jpg');
           break;
-  /*        case 5:
+          case 5:
           eventoStack.pic = require('../assets/images/men/men6.jpg');
           break;
           case 6:
           eventoStack.pic = require('../assets/images/men/men7.jpg');
           break;
-          case 7:
+     /*     case 7:
           eventoStack.pic = require('../assets/images/men/men8.jpg');
           break;
           case 8:
@@ -100,7 +106,8 @@ class TopPicksScreen extends React.Component {
       eventosStackAux.push(eventoStack);
     }
   //etEventosStack(eventosStackAux);
-    this.setState({eventosStack: eventosStackAux})
+    this.setState({eventosStack: eventosStackAux});
+    //console.log(eventos2);
     console.log('\n\n\n\n-----Termina MakeStack de Eventos-----\n\n\n\n');
   }
 
@@ -117,8 +124,9 @@ class TopPicksScreen extends React.Component {
   }
 }
 
-toogleTouched() {
+toogleTouched(i) {
   console.log('Evento tocado');
+  this.setState({ nEvento: i});
   if (this.state.touchedEvent == false ){
 
      this.setState({ touchedEvent: true});
@@ -129,6 +137,88 @@ toogleTouched() {
 
   }
 }
+
+asistirEvento(){
+ //A%C3%B1adirParticipanteServlet?usuarioSesionActual_email=dc%40gm.es&evento_participar=prueba1
+  var data_file = mainUrl + 'A%C3%B1adirParticipanteServlet?usuarioSesionActual_email='+
+                  user + '&evento_participar=' ; /////////////// TERMINAR CUANDO ESTEN LOS EVENTOS ////////
+
+  var http_request = new XMLHttpRequest();
+  try{
+     // Opera 8.0+, Firefox, Chrome, Safari
+     http_request = new XMLHttpRequest();
+  }catch (e) {
+     // Internet Explorer Browsers
+     try{
+        http_request = new ActiveXObject("Msxml2.XMLHTTP");
+
+     }catch (e) {
+
+        try{
+           http_request = new ActiveXObject("Microsoft.XMLHTTP");
+        }catch (e) {
+           // Something went wrong
+           alert("Your browser broke!");
+           return false;
+        }
+     }
+  }
+http_request.open("GET", data_file, true);
+  http_request.send();
+}
+
+
+
+ getEventos() {
+    var data_file = mainUrl+'FormGetAllEventos';
+    var http_request = new XMLHttpRequest();
+    try{
+       // Opera 8.0+, Firefox, Chrome, Safari
+       http_request = new XMLHttpRequest();
+    }catch (e) {
+       // Internet Explorer Browsers
+       try{
+          http_request = new ActiveXObject("Msxml2.XMLHTTP");
+
+       }catch (e) {
+
+          try{
+             http_request = new ActiveXObject("Microsoft.XMLHTTP");
+          }catch (e) {
+             // Something went wrong
+             alert("Your browser broke!");
+             return false;
+          }
+
+       }
+    }
+    
+    http_request.onreadystatechange = function() {
+
+       if (http_request.readyState == 4 && http_request.status == 200 ) {
+          // Javascript function JSON.parse to parse JSON data
+          var jsonObj = JSON.parse(http_request.responseText);
+          setEventos(jsonObj);
+          eventos2 = jsonObj;
+          
+          console.log('\n\n\n\n-----Inicio eventos-----\n\n\n\n');
+          console.log(eventos2);
+          console.log('\n\n\n\n-----Fin eventos-----\n\n\n\n');
+         
+
+          // jsonObj variable now contains the data structure and can
+          // be accessed as jsonObj.name and jsonObj.country.
+         // document.getElementById("Name").innerHTML = jsonObj.name;
+         // document.getElementById("Country").innerHTML = jsonObj.country;
+       }
+
+    }
+
+    http_request.open("GET", data_file, true);
+    http_request.send();
+
+
+  }
 
 
 uploadNewEvento(){
@@ -155,24 +245,30 @@ uploadNewEvento(){
      }
   }
 
+  
   http_request.open("GET", data_file, true);
   http_request.send();
 }
 
 
 componentDidMount(){
-  console.log(user);
-  console.log(eventos);
-
+/*  console.log(this.state.eventos);
   this.makeStack();
+  console.log(this.state.eventosStack) */
+this.getEventos();
+ //this.setState({eventos: eventos2});
+
+  console.log("state eventos: " + this.state.eventos);
+  this.makeStack();
+ 
 }
 
-  render() {
+ render() {
 
   if (!this.state.isEditing && !this.state.touchedEvent){
 
     return (
-      <SafeAreaView>
+         <SafeAreaView>
         <ScrollView>
           <Text h2 h2Style={styles.h2Style}>
             Explora
@@ -189,12 +285,12 @@ componentDidMount(){
                 imageSrc={pic}
                 activeOpacity={0.9}
                 title={title}
-                titleStyle={styles.title} 
+                titleStyle={styles.title}
                 caption={caption}
                 captionStyle={styles.caption}
                 featured
                 key={title}
-                onPress={() => this.toogleTouched() }
+                onPress={() => console.log('Evento tocado')}
               />
             ))}
           </View>
@@ -202,13 +298,29 @@ componentDidMount(){
       </SafeAreaView>
     )
   }else if(this.state.touchedEvent){
-    return(
+    /*
+    return( 
         <SafeAreaView>
-          <Button onPress={() => this.toogleTouched()}>
-            <Text style={styles.link} >Evento tocado</Text>
+        <ScrollView>
+
+          <Button onPress={() => this.toogleTouched(0)}>
+            <Text style={styles.link} >Volver a Eventos</Text>
           </Button>
+        <View style={styles.grid}>
+           <Image source={ExploraPics[this.state.nEvento].pic} style={styles.image} />
+           <Text h4 style={styles.name}> {ExploraPics[this.state.nEvento].title } </Text>
+           <Divider/>
+           <Text> {ExploraPics[this.state.nEvento].caption } </Text>
+         </View>
+         <Button onPress={() => this.asistirEvento() }>
+            <Text style={styles.link} >Asistir a evento</Text>
+          </Button>
+
+           </ScrollView>
         </SafeAreaView>
+        
       )
+      */
 
 
 
@@ -230,6 +342,8 @@ componentDidMount(){
       <Button onPress={() => this.toogleEditando()}>
       <Text style={styles.link} >Guardar cambios</Text>
       </Button>
+
+
     </SafeAreaView>
 
 
@@ -249,30 +363,37 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#757575',
   },
+  name: {
+    color: '#5E5E5E',
+    alignSelf: 'flex-start',
+    marginLeft: 30,
+  },
   grid: {
     marginTop: 20,
     marginBottom: 20,
+  },
+  image: {
+    width: Layout.window.width - 60,
+    height: Layout.window.height / 2 - 60,
+    borderRadius: 20,
   },
   title: {
     position: 'absolute',
     left: 10,
     bottom: 50,
+    backgroundColor: 'black',
     marginBottom: -2,
     padding: 10,
-    borderRadius: 5,
-    overflow: "hidden",
-    backgroundColor: 'rgba(0,0,0,0.2);'
   },
   caption: {
     position: 'absolute',
     left: 10,
     bottom: 0,
+    backgroundColor: 'black',
     marginTop: 10,
     padding: 10,
-    borderRadius: 5,
-    overflow: "hidden",
-    backgroundColor: 'rgba(0,0,0,0.2);'
   },
 })
+
 
 export default TopPicksScreen

@@ -106,7 +106,7 @@ class HomeScreen extends React.Component {
           break;
           case 7:
           userStack.pic = require('../assets/images/men/men8.jpg');
-          break;
+          break; 
           case 8:
           userStack.pic = require('../assets/images/men/men9.jpg');
           break;
