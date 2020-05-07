@@ -154,64 +154,16 @@ uploadNewEvento(){
         }
      }
   }
-/*
-  http_request.onreadystatechange = function(func) {
 
-console.log("4");
-     if (http_request.readyState == 4 && http_request.status == 200) {
-        // Javascript function JSON.parse to parse JSON data
-        var jsonObj = JSON.parse(http_request.responseText);
-        console.log("5A");
-          setEventos(jsonObj);
-
-
-        if (jsonObj.user.email == this.state.user.email){
-          console.log("5B");
-          this.makeStack();
-
-          Alert.alert(
-            "Completado",
-            "¡Evento añadido con éxtio!",
-            [
-            {
-              text: "OK",
-            }
-          ],{cancelable: false}
-          );
-
-        }
-        else{
-          console.log("5C");
-          Alert.alert(
-            "Error en el registro",
-            "Se ha producido un error",
-            [
-            {
-              text: "OK"
-            }
-          ],{cancelable: false}
-          );
-        //  navigation.navigate('WrongLoginScreen');
-        }
-
-        // jsonObj variable now contains the data structure and can
-        // be accessed as jsonObj.name and jsonObj.country.
-       // document.getElementById("Name").innerHTML = jsonObj.name;
-       // document.getElementById("Country").innerHTML = jsonObj.country;
-     //}else{
-       //navigation.navigate('AlreadyRegisterScreen');
-        console.log("6");
-     }
-
-     console.log("7");
-  }
-  */
   http_request.open("GET", data_file, true);
   http_request.send();
 }
 
 
 componentDidMount(){
+  console.log(user);
+  console.log(eventos);
+
   this.makeStack();
 }
 
@@ -228,7 +180,7 @@ componentDidMount(){
           <Text h4 h4Style={styles.h4Style}>
             Echa un vistazo a los eventos que tenemos para ti
           </Text>
-           <Button onPress={() => this.toogleTouched()}>
+           <Button onPress={() => this.toogleEditando()}>
             <Text style={styles.link} >Crea tu evento</Text>
           </Button>
           <View style={styles.grid}>
@@ -237,7 +189,7 @@ componentDidMount(){
                 imageSrc={pic}
                 activeOpacity={0.9}
                 title={title}
-                titleStyle={styles.title}
+                titleStyle={styles.title} 
                 caption={caption}
                 captionStyle={styles.caption}
                 featured
