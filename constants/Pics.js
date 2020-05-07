@@ -112,8 +112,13 @@ export const HomeScreenPics = shuffleArray([
 ])
 
 
-export const ExploraPics = shuffleArray([
+export const ExploraPics = [
 
+  {
+    pic: require('../assets/images/events/cine.jpg'),
+    title: 'Hablar sobre Cine',
+    caption: 'Descripción',
+  },
   {
     pic: require('../assets/images/events/debate.jpg'),
     title: 'Debate político',
@@ -133,14 +138,10 @@ export const ExploraPics = shuffleArray([
     pic: require('../assets/images/events/libro.jpg'),
     title: 'Café & Filosofía',
     caption: 'Descripción',
-  },
-  {
-    pic: require('../assets/images/events/cine.jpg'),
-    title: 'Hablar sobre Cine',
-    caption: 'Descripción',
-  },
+  }
+  
 
-])
+]
 
 /*
 export const TopPicksScreenPics = shuffleArray([

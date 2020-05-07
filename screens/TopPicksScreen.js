@@ -1,5 +1,5 @@
 import React from 'react'
-import { Image,ScrollView, StyleSheet, View } from 'react-native'
+import { Image,ScrollView, StyleSheet, View, RefreshControl, Alert } from 'react-native'
 import { Divider, Text, Tile } from 'react-native-elements'
 import { SafeAreaView } from 'react-navigation'
 import { ExploraPics } from '../constants/Pics'
@@ -18,7 +18,10 @@ import {eventos, getAllEventos, eventosStack, getEventosStack, setEventosStack} 
 
 var eventos2 = { descripcion: "",participantes: [], titulo: ""  };
 
+
+
 class TopPicksScreen extends React.Component {
+
   state ={
       user: user,
       eventos : eventos,
@@ -29,8 +32,20 @@ class TopPicksScreen extends React.Component {
 
       isEditing: false,
       touchedEvent: false,
-      nEvento: 0
+      nEvento: 0,
+      refreshing: false,
+
   }
+
+   
+
+ /* _onRefresh = () => {
+    this.setState({refreshing: true});
+    this.makeStack().then(() => {
+      this.setState({refreshing: false});
+    });
+  }
+  */
 
   makeStack(){
     var eventosStackAux = [];
@@ -53,13 +68,13 @@ class TopPicksScreen extends React.Component {
           eventoStack.pic = require('../assets/images/events/debate.jpg');
           break;
           case 2:
-          eventoStack.pic = require('../assets/images/events/guitar.jpg');
+          eventoStack.pic = require('../assets/images/events/museo.jpg');
           break;
           case 3:
-          eventoStack.pic = require('../assets/images/events/libro.jpg');
+          eventoStack.pic = require('../assets/images/events/guitar.jpg');
           break;
           case 4:
-          eventoStack.pic = require('../assets/images/events/museo.jpg');
+          eventoStack.pic = require('../assets/images/events/libro.jpg');
           break;
           case 5:
           eventoStack.pic = require('../assets/images/men/men6.jpg');
@@ -119,8 +134,10 @@ class TopPicksScreen extends React.Component {
 
   }else{
     this.uploadNewEvento();
-    this.setState({ isEditing: false});
 
+    this.setState({ isEditing: false});
+   // window.location.reload(false);
+ 
   }
 }
 
@@ -139,9 +156,12 @@ toogleTouched(i) {
 }
 
 asistirEvento(){
+  console.log("ASISTIR EVENTO--------->" + this.state.eventos[this.state.nEvento].titulo);
+  console.log("ASISTIR mail--------->" + this.state.user.mail);
+  nombre_evento = this.state.eventos[this.state.nEvento].titulo; 
  //A%C3%B1adirParticipanteServlet?usuarioSesionActual_email=dc%40gm.es&evento_participar=prueba1
   var data_file = mainUrl + 'A%C3%B1adirParticipanteServlet?usuarioSesionActual_email='+
-                  user + '&evento_participar=' ; /////////////// TERMINAR CUANDO ESTEN LOS EVENTOS ////////
+                  user.mail + '&evento_participar=' ; /////////////// TERMINAR CUANDO ESTEN LOS EVENTOS ////////
 
   var http_request = new XMLHttpRequest();
   try{
@@ -297,7 +317,10 @@ this.getEventos();
 
     return (
          <SafeAreaView>
-        <ScrollView>
+        <ScrollView  refreshControl={
+          <RefreshControl refreshing={this.state.refreshing}
+            onRefresh={this._onRefresh} />
+        }>
           <Text h2 h2Style={styles.h2Style}>
             Explora
           </Text>
@@ -318,7 +341,7 @@ this.getEventos();
                 captionStyle={styles.caption}
                 featured
                 key={title}
-                onPress={() => console.log('Evento tocado')}
+                onPress={() => this.toogleTouched(i)}
               />
             ))}
           </View>
@@ -326,7 +349,7 @@ this.getEventos();
       </SafeAreaView>
     )
   }else if(this.state.touchedEvent){
-    /*
+    
     return( 
         <SafeAreaView>
         <ScrollView>
@@ -335,12 +358,23 @@ this.getEventos();
             <Text style={styles.link} >Volver a Eventos</Text>
           </Button>
         <View style={styles.grid}>
-           <Image source={ExploraPics[this.state.nEvento].pic} style={styles.image} />
+           <Image source={ ExploraPics[this.state.nEvento].pic} style={styles.image} />
            <Text h4 style={styles.name}> {ExploraPics[this.state.nEvento].title } </Text>
            <Divider/>
            <Text> {ExploraPics[this.state.nEvento].caption } </Text>
          </View>
-         <Button onPress={() => this.asistirEvento() }>
+         <Button onPress={() =>{
+          
+           Alert.alert(
+            "Completado",
+            "¡Se ha indicado que vas a asistir al Evento!",
+            [
+            {
+              text: "OK", onPress: () => this.asistirEvento()
+            }
+          ],{cancelable: false}
+          );
+           }}>
             <Text style={styles.link} >Asistir a evento</Text>
           </Button>
 
@@ -348,7 +382,7 @@ this.getEventos();
         </SafeAreaView>
         
       )
-      */
+      
 
 
 
