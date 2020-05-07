@@ -114,6 +114,51 @@ const LoginScreen = ({ navigation }) => {
 
    function loadUser(email, password) {
                var data_file = mainUrl+'FormGetUser?email='+email+'&password='+password;
+
+               fetch(data_file, {
+         method: 'GET',
+         headers: {
+             'Accept': 'application/json',
+             'Content-type': 'application/json'
+           }
+         })
+     .then((response) => response.json())
+         .then((json) => {
+          usuario = json;
+                     
+                     setUser(usuario)
+                     
+          console.log("USUARIOOOOOOOOOO--------------------->" +json);
+
+          
+          
+           //this.setState({ eventos: json });
+         })
+         .catch((error) => console.error(error))
+         .finally(() => {
+
+          if (user.email == email){
+                       navigation.navigate('Dashboard');
+                     }
+                     else{
+                       Alert.alert(
+                         "Error al hacer login",
+                         "Email y/o contraseña incorrectos",
+                         [
+                         {
+                           text: "OK"
+                         }
+                       ],{cancelable: false}
+                       );
+                      // navigation.navigate('WrongLoginScreen');
+                     }
+    //    
+
+         });
+
+
+/*
+
                var http_request = new XMLHttpRequest();
                try{
                   // Opera 8.0+, Firefox, Chrome, Safari
@@ -169,7 +214,7 @@ const LoginScreen = ({ navigation }) => {
                     // document.getElementById("Country").innerHTML = jsonObj.country;
                   }
                   //else{
-                  /*  Alert.alert(
+                    Alert.alert(
                       "Error al contactar con el servidor",
                       "Por favor, inténtelo de nuevo",
                       [
@@ -178,11 +223,15 @@ const LoginScreen = ({ navigation }) => {
                       }
                     ],{cancelable: false}
                     );
-                  }*/
+                  }
                }
 
                http_request.open("GET", data_file, true);
                http_request.send();
+
+              */
+
+
             }
 
   const [email, setEmail] = useState({ value: '', error: '' });

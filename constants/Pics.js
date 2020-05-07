@@ -117,12 +117,12 @@ export const ExploraPics = [
   {
     pic: require('../assets/images/events/cine.jpg'),
     title: 'Hablar sobre Cine',
-    caption: 'Descripción',
+    caption: 'Me gustaría conversar acerca de mis películas favoritas',
   },
   {
     pic: require('../assets/images/events/debate.jpg'),
     title: 'Debate político',
-    caption: 'Descripción'
+    caption: 'Me gustaría debatir sobre la política de la actualidad'
   },
   {
     pic: require('../assets/images/events/museo.jpg'),

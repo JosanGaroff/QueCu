@@ -39,13 +39,7 @@ class TopPicksScreen extends React.Component {
 
    
 
- /* _onRefresh = () => {
-    this.setState({refreshing: true});
-    this.makeStack().then(() => {
-      this.setState({refreshing: false});
-    });
-  }
-  */
+
 
   makeStack(){
     var eventosStackAux = [];
@@ -159,9 +153,9 @@ asistirEvento(){
   console.log("ASISTIR EVENTO--------->" + this.state.eventos[this.state.nEvento].titulo);
   console.log("ASISTIR mail--------->" + this.state.user.mail);
   nombre_evento = this.state.eventos[this.state.nEvento].titulo; 
- //A%C3%B1adirParticipanteServlet?usuarioSesionActual_email=dc%40gm.es&evento_participar=prueba1
+ 
   var data_file = mainUrl + 'A%C3%B1adirParticipanteServlet?usuarioSesionActual_email='+
-                  user.mail + '&evento_participar=' ; /////////////// TERMINAR CUANDO ESTEN LOS EVENTOS ////////
+                  user.mail + '&evento_participar='+ nombre_evento; /////////////// TERMINAR CUANDO ESTEN LOS EVENTOS ////////
 
   var http_request = new XMLHttpRequest();
   try{
@@ -205,67 +199,13 @@ http_request.open("GET", data_file, true);
          })
          .catch((error) => console.error(error))
          .finally(() => {
-    //       setTimeout(() => {  console.log("Fetch"); }, 2000);
-           console.log( "AQUI------------------>" + this.state.eventos);
+    //    
 
            this.makeStack();
            //this.setState({ isLoading: false });
          });
 
 
-
-
-
-  ////////////////////////////***************************************************//////////////////////////
-  /*
-    var data_file = mainUrl+'FormGetAllEventos';
-    var http_request = new XMLHttpRequest();
-    try{
-       // Opera 8.0+, Firefox, Chrome, Safari
-       http_request = new XMLHttpRequest();
-    }catch (e) {
-       // Internet Explorer Browsers
-       try{
-          http_request = new ActiveXObject("Msxml2.XMLHTTP");
-
-       }catch (e) {
-
-          try{
-             http_request = new ActiveXObject("Microsoft.XMLHTTP");
-          }catch (e) {
-             // Something went wrong
-             alert("Your browser broke!");
-             return false;
-          }
-
-       }
-    }
-    
-    http_request.onreadystatechange = function() {
-
-       if (http_request.readyState == 4 && http_request.status == 200 ) {
-          // Javascript function JSON.parse to parse JSON data
-          var jsonObj = JSON.parse(http_request.responseText);
-          setAllEventos(jsonObj);
-          eventos2 = jsonObj;
-          
-          console.log('\n\n\n\n-----Inicio eventos-----\n\n\n\n');
-          console.log(eventos2);
-          console.log('\n\n\n\n-----Fin eventos-----\n\n\n\n');
-         
-
-          // jsonObj variable now contains the data structure and can
-          // be accessed as jsonObj.name and jsonObj.country.
-         // document.getElementById("Name").innerHTML = jsonObj.name;
-         // document.getElementById("Country").innerHTML = jsonObj.country;
-       }
-
-    }
-
-    http_request.open("GET", data_file, true);
-    http_request.send();
-
-*/
   }
 
 
@@ -296,6 +236,9 @@ uploadNewEvento(){
   
   http_request.open("GET", data_file, true);
   http_request.send();
+  var aux = { descripcion: this.state.descripcion,participantes: [], titulo: this.state.titulo  };
+  this.setState({ eventos: this.state.eventos.push(aux) });
+  this.makeStack();
 }
 
 
@@ -442,7 +385,7 @@ const styles = StyleSheet.create({
   title: {
     position: 'absolute',
     left: 10,
-    bottom: 50,
+    bottom: 150,
     backgroundColor: 'black',
     marginBottom: -2,
     padding: 10,
